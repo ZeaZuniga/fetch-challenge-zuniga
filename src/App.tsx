@@ -13,8 +13,8 @@ function App() {
         <Navbar />
         <h1>Hello World!</h1>
         <Routes>
-          <Route index path="/" element={<Homepage />} />
-          <Route index path="/login" element={<Loginpage />} />
+          <Route path="/" element={<Homepage />} />
+          <Route path="/login" element={<Loginpage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
