@@ -20,9 +20,10 @@ export default function Loginpage() {
 
     axios
       .post("https://frontend-take-home-service.fetch.com/auth/login", content)
-      .then(() => {
-        console.log("User Is Logged In");
-        navigate("/");
+      .then((data) => {
+        alert("You have logged in!");
+        console.log("User Is Logged In", data);
+        // navigate("/");
       })
       .catch((error) => {
         console.error(error);

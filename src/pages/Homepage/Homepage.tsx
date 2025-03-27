@@ -8,7 +8,9 @@ export default function Homepage() {
 
   useEffect(() => {
     axios
-      .get("https://frontend-take-home-service.fetch.com/dogs/search")
+      .get("https://frontend-take-home-service.fetch.com/dogs/search", {
+        withCredentials: true,
+      })
       .then((data) => {
         console.log("Here are your dogs!", data);
       })
