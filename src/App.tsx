@@ -4,6 +4,7 @@ import Homepage from "./pages/Homepage/Homepage";
 import NotFound from "./pages/NotFound/NotFound";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
+import Loginpage from "./pages/LoginPage/Loginpage";
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
         <Navbar />
         <h1>Hello World!</h1>
         <Routes>
-          <Route path="/" element={<Homepage />} />
+          <Route index path="/" element={<Homepage />} />
+          <Route index path="/login" element={<Loginpage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
