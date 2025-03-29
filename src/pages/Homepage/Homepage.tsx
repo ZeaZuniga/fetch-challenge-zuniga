@@ -3,6 +3,7 @@ import "./Homepage.scss";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Dog } from "../../utils/interfaces";
+import DogCard from "../../components/DogCard/DogCard";
 
 export default function Homepage() {
   const [resultsIds, setResultsIds] = useState<[]>([]);
@@ -48,6 +49,7 @@ export default function Homepage() {
   return (
     <div className="homepage">
       <h2>Homepage</h2>
+      <DogCard dogData={dogList[0]} />
     </div>
   );
 }

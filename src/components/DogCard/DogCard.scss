@@ -1,0 +1,18 @@
+@use "../../styles/partials/variables" as *;
+
+.dogCard {
+  border-top: 3px solid black;
+  border-bottom: 3px solid black;
+  position: relative;
+
+  &__favorite {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 10rem;
+    width: 10rem;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+}
