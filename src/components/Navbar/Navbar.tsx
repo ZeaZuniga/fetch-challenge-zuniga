@@ -4,9 +4,13 @@ import "./Navbar.scss";
 export default function Navbar() {
   const handleLogOut = () => {
     axios
-      .post("https://frontend-take-home-service.fetch.com/auth/logout", {
-        withCredentials: true,
-      })
+      .post(
+        "https://frontend-take-home-service.fetch.com/auth/logout",
+        {},
+        {
+          withCredentials: true,
+        }
+      )
       .then((data) => {
         alert("You have logged out!");
         console.log("User Is Logged out", data);
