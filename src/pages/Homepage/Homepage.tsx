@@ -7,7 +7,7 @@ import DogCard from "../../components/DogCard/DogCard";
 
 export default function Homepage() {
   const [resultsIds, setResultsIds] = useState<[]>([]);
-  const [dogList, setDogList] = useState<[Dog?]>([]);
+  const [dogList, setDogList] = useState<Dog[]>([]);
 
   const navigate = useNavigate();
 
@@ -46,10 +46,20 @@ export default function Homepage() {
     }
   }, [resultsIds]);
 
-  return (
-    <div className="homepage">
-      <h2>Homepage</h2>
-      <DogCard dogData={dogList[0]} />
-    </div>
-  );
+  if (dogList.length > 0) {
+    return (
+      <div className="homepage">
+        <h2>Homepage</h2>
+        {dogList.map((dogObject: Dog, i: number) => {
+          return <DogCard dogData={dogObject} key={i} />;
+        })}
+      </div>
+    );
+  } else {
+    return (
+      <div className="homepage">
+        <h2>Homepage</h2>
+      </div>
+    );
+  }
 }
