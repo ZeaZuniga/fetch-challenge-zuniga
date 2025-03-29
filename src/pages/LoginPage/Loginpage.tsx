@@ -25,7 +25,6 @@ export default function Loginpage() {
         { withCredentials: true }
       )
       .then((data) => {
-        alert("You have logged in!");
         console.log("User Is Logged In", data);
         navigate("/");
       })
