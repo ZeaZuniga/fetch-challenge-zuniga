@@ -49,7 +49,6 @@ export default function Homepage() {
   if (dogList.length > 0) {
     return (
       <div className="homepage">
-        <h2>Homepage</h2>
         <ul className="homepage__searchList">
           {dogList.map((dogObject: Dog, i: number) => {
             return <DogCard dogData={dogObject} key={i} />;
