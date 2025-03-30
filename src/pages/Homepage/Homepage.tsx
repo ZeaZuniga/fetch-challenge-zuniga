@@ -50,9 +50,11 @@ export default function Homepage() {
     return (
       <div className="homepage">
         <h2>Homepage</h2>
-        {dogList.map((dogObject: Dog, i: number) => {
-          return <DogCard dogData={dogObject} key={i} />;
-        })}
+        <ul className="homepage__searchList">
+          {dogList.map((dogObject: Dog, i: number) => {
+            return <DogCard dogData={dogObject} key={i} />;
+          })}
+        </ul>
       </div>
     );
   } else {
