@@ -31,6 +31,10 @@ export default function Navbar() {
       });
   };
 
+  const closeNav = () => {
+    setIsNavOpen(false);
+  };
+
   return (
     <div className="navbar">
       <section className="navbar__logo">
@@ -59,13 +63,19 @@ export default function Navbar() {
         }`}
       >
         <li className="navbar__item">
-          <NavLink to={"/about"}>About</NavLink>
+          <NavLink onClick={closeNav} to={"/about"}>
+            About
+          </NavLink>
         </li>
         <li className="navbar__item">
-          <NavLink to={"/contact"}>Contact</NavLink>
+          <NavLink onClick={closeNav} to={"/contact"}>
+            Contact
+          </NavLink>
         </li>
         <li className="navbar__item">
-          <NavLink to={"/resources"}>Resources</NavLink>
+          <NavLink onClick={closeNav} to={"/resources"}>
+            Resources
+          </NavLink>
         </li>
         <li className="navbar__item">
           <button onClick={handleLogOut} className="navbar__button">
