@@ -1,5 +1,13 @@
 import React from "react";
 import "./FilterForm.scss";
+import { useForm } from "react-hook-form";
+
+interface filterFormValues {
+  breeds?: string[];
+  zipCodes?: string[];
+  ageMin?: number;
+  ageMax?: number;
+}
 
 export default function FilterForm() {
   const breedArray = [
@@ -125,11 +133,23 @@ export default function FilterForm() {
     "Yorkshire Terrier",
   ];
 
+  const { register, handleSubmit } = useForm<filterFormValues>();
+
+  const filterSubmit = (data: Object) => {
+    console.log("The form was submitted!", data);
+  };
+
   return (
     <div className="filterform">
       <section className="filterform__button"></section>
-      <form className="filterform__form">
-        <select name="dogBreed" id="dogBreed" multiple size={8}>
+      <form onSubmit={handleSubmit(filterSubmit)} className="filterform__form">
+        <select
+          {...register("breeds")}
+          name="dogBreed"
+          id="dogBreed"
+          multiple
+          size={8}
+        >
           {breedArray.map((breed: string, i: number) => {
             return (
               <option value={breed} key={i}>
@@ -139,9 +159,19 @@ export default function FilterForm() {
           })}
         </select>
         <label htmlFor="dogMin">Minimum Age</label>
-        <input type="number" name="dogMin" id="dogMin" />
+        <input
+          {...register("ageMin")}
+          type="number"
+          name="dogMin"
+          id="dogMin"
+        />
         <label htmlFor="dogMax">Maximum Age</label>
-        <input type="number" name="dogMax" id="dogMax" />
+        <input
+          {...register("ageMax")}
+          type="number"
+          name="dogMax"
+          id="dogMax"
+        />
         <input type="submit" value="Apply Filters" />
       </form>
     </div>

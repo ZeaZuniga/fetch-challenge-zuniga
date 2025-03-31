@@ -31,6 +31,7 @@ export default function Homepage() {
       .catch(function ([searchErr, breedErr]) {
         console.log(searchErr);
         console.log(breedErr);
+        navigate("/login");
       });
   }, []);
 
