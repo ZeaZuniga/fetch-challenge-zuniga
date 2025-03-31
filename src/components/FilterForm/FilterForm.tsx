@@ -134,12 +134,10 @@ const breedArray = [
 ];
 
 export default function FilterForm() {
-  const { register, handleSubmit } = useForm<filterFormValues>();
-  const [breedSelect, setBreedSelect] = useState<string[]>([]);
+  const { register, handleSubmit, setValue } = useForm<filterFormValues>();
 
   const filterSubmit = (data: Object) => {
     console.log(data);
-    console.log(breedSelect);
   };
 
   const breedOptions = breedArray.map((breed) => ({
@@ -154,7 +152,12 @@ export default function FilterForm() {
         isMulti
         closeMenuOnSelect={false}
         options={breedOptions}
-        onChange={(e) => setBreedSelect(e.map(({ value }) => value))}
+        onChange={(e) =>
+          setValue(
+            "breeds",
+            e.map(({ value }) => value)
+          )
+        }
       />
       <input {...register("ageMin")} type="number" />
       <input {...register("ageMax")} type="number" />
