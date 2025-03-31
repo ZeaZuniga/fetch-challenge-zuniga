@@ -8,21 +8,29 @@ import DogCard from "../../components/DogCard/DogCard";
 export default function Homepage() {
   const [resultsIds, setResultsIds] = useState<[]>([]);
   const [dogList, setDogList] = useState<Dog[]>([]);
+  const [breeds, setBreeds] = useState<[]>([]);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios
-      .get("https://frontend-take-home-service.fetch.com/dogs/search", {
+    Promise.all([
+      axios.get("https://frontend-take-home-service.fetch.com/dogs/search", {
         withCredentials: true,
-      })
-      .then((res) => {
-        let newList = res.data.resultIds;
+      }),
+      axios.get("https://frontend-take-home-service.fetch.com/dogs/breeds", {
+        withCredentials: true,
+      }),
+    ])
+      .then(function ([searchRes, breedRes]) {
+        let newList = searchRes.data.resultIds;
         setResultsIds(newList);
+
+        setBreeds(breedRes.data);
+        console.log(breeds);
       })
-      .catch((error) => {
-        console.error(error);
-        navigate("/login");
+      .catch(function ([searchErr, breedErr]) {
+        console.log(searchErr);
+        console.log(breedErr);
       });
   }, []);
 
