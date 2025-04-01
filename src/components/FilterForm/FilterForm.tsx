@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "./FilterForm.scss";
 import { useForm } from "react-hook-form";
 import Select from "react-select";
+import filter from "../../assets/icons/filterLightGray.png";
+import xLightGray from "../../assets/icons/xLightGray.png";
 
 interface filterFormValues {
   breeds?: string[];
@@ -10,131 +12,9 @@ interface filterFormValues {
   ageMax?: string;
 }
 
-const breedArray = [
-  "Affenpinscher",
-  "Afghan Hound",
-  "African Hunting Dog",
-  "Airedale",
-  "American Staffordshire Terrier",
-  "Appenzeller",
-  "Australian Terrier",
-  "Basenji",
-  "Basset",
-  "Beagle",
-  "Bedlington Terrier",
-  "Bernese Mountain Dog",
-  "Black-and-tan Coonhound",
-  "Blenheim Spaniel",
-  "Bloodhound",
-  "Bluetick",
-  "Border Collie",
-  "Border Terrier",
-  "Borzoi",
-  "Boston Bull",
-  "Bouvier Des Flandres",
-  "Boxer",
-  "Brabancon Griffon",
-  "Briard",
-  "Brittany Spaniel",
-  "Bull Mastiff",
-  "Cairn",
-  "Cardigan",
-  "Chesapeake Bay Retriever",
-  "Chihuahua",
-  "Chow",
-  "Clumber",
-  "Cocker Spaniel",
-  "Collie",
-  "Curly-coated Retriever",
-  "Dandie Dinmont",
-  "Dhole",
-  "Dingo",
-  "Doberman",
-  "English Foxhound",
-  "English Setter",
-  "English Springer",
-  "EntleBucher",
-  "Eskimo Dog",
-  "Flat-coated Retriever",
-  "French Bulldog",
-  "German Shepherd",
-  "German Short-haired Pointer",
-  "Giant Schnauzer",
-  "Golden Retriever",
-  "Gordon Setter",
-  "Great Dane",
-  "Great Pyrenees",
-  "Greater Swiss Mountain Dog",
-  "Groenendael",
-  "Ibizan Hound",
-  "Irish Setter",
-  "Irish Terrier",
-  "Irish Water Spaniel",
-  "Irish Wolfhound",
-  "Italian Greyhound",
-  "Japanese Spaniel",
-  "Keeshond",
-  "Kelpie",
-  "Kerry Blue Terrier",
-  "Komondor",
-  "Kuvasz",
-  "Labrador Retriever",
-  "Lakeland Terrier",
-  "Leonberg",
-  "Lhasa",
-  "Malamute",
-  "Malinois",
-  "Maltese Dog",
-  "Mexican Hairless",
-  "Miniature Pinscher",
-  "Miniature Poodle",
-  "Miniature Schnauzer",
-  "Newfoundland",
-  "Norfolk Terrier",
-  "Norwegian Elkhound",
-  "Norwich Terrier",
-  "Old English Sheepdog",
-  "Otterhound",
-  "Papillon",
-  "Pekinese",
-  "Pembroke",
-  "Pomeranian",
-  "Pug",
-  "Redbone",
-  "Rhodesian Ridgeback",
-  "Rottweiler",
-  "Saint Bernard",
-  "Saluki",
-  "Samoyed",
-  "Schipperke",
-  "Scotch Terrier",
-  "Scottish Deerhound",
-  "Sealyham Terrier",
-  "Shetland Sheepdog",
-  "Shih-Tzu",
-  "Siberian Husky",
-  "Silky Terrier",
-  "Soft-coated Wheaten Terrier",
-  "Staffordshire Bullterrier",
-  "Standard Poodle",
-  "Standard Schnauzer",
-  "Sussex Spaniel",
-  "Tibetan Mastiff",
-  "Tibetan Terrier",
-  "Toy Poodle",
-  "Toy Terrier",
-  "Vizsla",
-  "Walker Hound",
-  "Weimaraner",
-  "Welsh Springer Spaniel",
-  "West Highland White Terrier",
-  "Whippet",
-  "Wire-haired Fox Terrier",
-  "Yorkshire Terrier",
-];
-
-export default function FilterForm() {
+export default function FilterForm(props: { breedArray: string[] }) {
   const { register, handleSubmit, setValue } = useForm<filterFormValues>();
+  const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
 
   const filterSubmit = (data: filterFormValues) => {
     if (typeof data.zipCodes === "string") {
@@ -151,67 +31,114 @@ export default function FilterForm() {
     }
   };
 
-  const breedOptions = breedArray.map((breed) => ({
+  const breedOptions = props.breedArray.map((breed) => ({
     value: breed,
     label: breed,
   }));
 
   return (
     <form onSubmit={handleSubmit(filterSubmit)} className="filterform">
-      <div className="filterForm__container">
-        <Select
-          className="filterForm__select"
-          name="breeds"
-          isMulti
-          closeMenuOnSelect={false}
-          closeMenuOnScroll={false}
-          options={breedOptions}
-          onChange={(e) =>
-            setValue(
-              "breeds",
-              e.map(({ value }) => value)
-            )
-          }
+      <div
+        className="filterform__tab"
+        onClick={() => setIsFormOpen(!isFormOpen)}
+      >
+        <img src={filter} alt="Filter Tab" className="filterform__img" />
+        <p className="filterform__header">Filters</p>
+        <img
+          src={xLightGray}
+          alt="Close Filter"
+          onClick={() => setIsFormOpen(false)}
+          className={`filterform__close${
+            isFormOpen
+              ? " filterform__close--open"
+              : " filterform__close--hidden"
+          }`}
         />
       </div>
-      <div className="filterForm__container">
-        <label htmlFor="ageMin" className="filterForm__label">
-          Minimum Age (in years)
-        </label>
+      <div
+        className={`filterform__content${
+          isFormOpen
+            ? " filterform__content--open"
+            : " filterform__content--hidden"
+        }`}
+      >
+        <section className="filterform__container">
+          <label htmlFor="breeds">Select Breeds</label>
+          <Select
+            styles={{
+              control: (baseStyles, state) => ({
+                ...baseStyles,
+                borderColor: state.isFocused ? "#ffa900" : "#890075",
+                borderWidth: "2px",
+                boxShadow: "none",
+              }),
+              menuList: (styles) => ({
+                ...styles,
+                background: "white",
+                borderRadius: "12px",
+              }),
+              option: (styles) => ({
+                ...styles,
+                color: "#300d38",
+              }),
+              menu: (base) => ({
+                ...base,
+                zIndex: 1,
+                margin: 0,
+              }),
+            }}
+            name="breeds"
+            isMulti
+            closeMenuOnSelect={false}
+            closeMenuOnScroll={false}
+            options={breedOptions}
+            onChange={(e) =>
+              setValue(
+                "breeds",
+                e.map(({ value }) => value)
+              )
+            }
+          />
+        </section>
+        <section className="filterform__container">
+          <label htmlFor="ageMin" className="filterForm__label">
+            Minimum Age (in years)
+          </label>
+          <input
+            {...register("ageMin")}
+            type="number"
+            name="ageMin"
+            className="filterForm__input"
+          />
+        </section>
+        <section className="filterform__container">
+          <label htmlFor="ageMax" className="filterForm__label">
+            Maximum Age (in years)
+          </label>
+          <input
+            {...register("ageMax")}
+            type="number"
+            name="ageMax"
+            className="filterForm__input"
+          />
+        </section>
+        <section className="filterform__container">
+          <label htmlFor="zipCodes" className="filterForm__label">
+            Zip Codes (separated by comma)
+          </label>
+          <input
+            {...register("zipCodes")}
+            type="text"
+            name="zipCodes"
+            className="filterForm__input"
+          />
+        </section>
         <input
-          {...register("ageMin")}
-          type="number"
-          name="ageMin"
-          className="filterForm__input"
+          type="submit"
+          value="Apply Filters"
+          className="filterForm__submit"
         />
       </div>
-      <div className="filterForm__container">
-        <label htmlFor="ageMax" className="filterForm__label">
-          Maximum Age (in years)
-        </label>
-        <input
-          {...register("ageMax")}
-          type="number"
-          name="ageMax"
-          className="filterForm__input"
-        />
-      </div>
-      <div className="filterForm__container">
-        <label htmlFor="zipCodes" className="filterForm__label">
-          Zip Codes (separated by comma)
-        </label>
-        <input
-          {...register("zipCodes")}
-          type="text"
-          name="zipCodes"
-          className="filterForm__input"
-        />
-      </div>
-      <input
-        type="submit"
-        value="Apply Filters"
-        className="filterForm__submit"
-      />
     </form>
   );
 }

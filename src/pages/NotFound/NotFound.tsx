@@ -1,10 +1,11 @@
-import FilterForm from "../../components/FilterForm/FilterForm";
 import "./NotFound.scss";
 
 export default function NotFound() {
   return (
     <div>
-      <FilterForm />
+      <h1>
+        This page is still under construction. Thank you for your patience.
+      </h1>
     </div>
   );
 }

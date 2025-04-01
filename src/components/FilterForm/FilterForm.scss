@@ -1,1 +1,73 @@
 @use "../../styles/partials/variables" as *;
+
+.filterform {
+  background-color: $FetchPrimary;
+  color: $FetchLightGray;
+  position: relative;
+  border-radius: 12px;
+  width: 30rem;
+  margin: auto;
+  margin-bottom: 2rem;
+
+  &__tab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5rem;
+    column-gap: 1.2rem;
+    position: relative;
+
+    .filterform__img {
+      height: 3rem;
+      width: 3rem;
+    }
+
+    .filterform__header {
+      font-size: 2rem;
+      letter-spacing: 1.5px;
+      font-weight: bold;
+    }
+
+    .filterform__close {
+      display: none;
+      height: 3rem;
+      width: 3rem;
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+
+      &--open {
+        display: initial;
+      }
+
+      &--hidden {
+        display: none;
+      }
+    }
+  }
+
+  &__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 1rem;
+    row-gap: 1.5rem;
+
+    &--hidden {
+      display: none;
+    }
+
+    &--open {
+      display: flex;
+    }
+
+    .filterform__container {
+      width: 100%;
+
+      .filterform__select {
+        color: $FetchPrimaryDark;
+      }
+    }
+  }
+}
