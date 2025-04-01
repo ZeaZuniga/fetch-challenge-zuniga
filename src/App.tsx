@@ -12,8 +12,8 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/login" element={<Loginpage />} />
+          <Route index path="/" element={<Loginpage />} />
+          <Route path="/home" element={<Homepage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />

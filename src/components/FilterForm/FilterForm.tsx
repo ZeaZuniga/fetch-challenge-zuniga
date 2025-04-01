@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import "./FilterForm.scss";
 import { useForm } from "react-hook-form";
 import Select from "react-select";
 
 interface filterFormValues {
   breeds?: string[];
-  zipCodes?: string[];
-  ageMin: string;
+  zipCodes?: string | string[];
+  ageMin?: string;
   ageMax?: string;
 }
 
@@ -136,8 +136,19 @@ const breedArray = [
 export default function FilterForm() {
   const { register, handleSubmit, setValue } = useForm<filterFormValues>();
 
-  const filterSubmit = (data: Object) => {
-    console.log(data);
+  const filterSubmit = (data: filterFormValues) => {
+    if (typeof data.zipCodes === "string") {
+      let zips: string[] = data.zipCodes.split(",").map((code) => code.trim());
+
+      let newData = {
+        ...data,
+        zipCodes: zips,
+      };
+      console.log(newData);
+      return;
+    } else {
+      console.log(data);
+    }
   };
 
   const breedOptions = breedArray.map((breed) => ({
@@ -147,21 +158,60 @@ export default function FilterForm() {
 
   return (
     <form onSubmit={handleSubmit(filterSubmit)} className="filterform">
-      <Select
-        name="breeds"
-        isMulti
-        closeMenuOnSelect={false}
-        options={breedOptions}
-        onChange={(e) =>
-          setValue(
-            "breeds",
-            e.map(({ value }) => value)
-          )
-        }
+      <div className="filterForm__container">
+        <Select
+          className="filterForm__select"
+          name="breeds"
+          isMulti
+          closeMenuOnSelect={false}
+          closeMenuOnScroll={false}
+          options={breedOptions}
+          onChange={(e) =>
+            setValue(
+              "breeds",
+              e.map(({ value }) => value)
+            )
+          }
+        />
+      </div>
+      <div className="filterForm__container">
+        <label htmlFor="ageMin" className="filterForm__label">
+          Minimum Age (in years)
+        </label>
+        <input
+          {...register("ageMin")}
+          type="number"
+          name="ageMin"
+          className="filterForm__input"
+        />
+      </div>
+      <div className="filterForm__container">
+        <label htmlFor="ageMax" className="filterForm__label">
+          Maximum Age (in years)
+        </label>
+        <input
+          {...register("ageMax")}
+          type="number"
+          name="ageMax"
+          className="filterForm__input"
+        />
+      </div>
+      <div className="filterForm__container">
+        <label htmlFor="zipCodes" className="filterForm__label">
+          Zip Codes (separated by comma)
+        </label>
+        <input
+          {...register("zipCodes")}
+          type="text"
+          name="zipCodes"
+          className="filterForm__input"
+        />
+      </div>
+      <input
+        type="submit"
+        value="Apply Filters"
+        className="filterForm__submit"
       />
-      <input {...register("ageMin")} type="number" />
-      <input {...register("ageMax")} type="number" />
-      <input type="submit" value="Apply Filters" />
     </form>
   );
 }
