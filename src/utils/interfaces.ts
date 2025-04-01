@@ -21,4 +21,11 @@ interface Coordinates {
   lon: number;
 }
 
-export type { Dog, Location, Coordinates };
+interface filterFormValues {
+  breeds?: string[];
+  zipCodes?: string | string[];
+  ageMin?: string;
+  ageMax?: string;
+}
+
+export type { Dog, Location, Coordinates, filterFormValues };

@@ -4,15 +4,14 @@ import { useForm } from "react-hook-form";
 import Select from "react-select";
 import filter from "../../assets/icons/filterLightGray.png";
 import xLightGray from "../../assets/icons/xLightGray.png";
+import { filterFormValues } from "../../utils/interfaces";
 
-interface filterFormValues {
-  breeds?: string[];
-  zipCodes?: string | string[];
-  ageMin?: string;
-  ageMax?: string;
+interface FormProps {
+  breedArray: string[];
+  searchFunction: (filters: filterFormValues) => void;
 }
 
-export default function FilterForm(props: { breedArray: string[] }) {
+export default function FilterForm(props: FormProps) {
   const { register, handleSubmit, setValue } = useForm<filterFormValues>();
   const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
 
@@ -24,10 +23,10 @@ export default function FilterForm(props: { breedArray: string[] }) {
         ...data,
         zipCodes: zips,
       };
-      console.log(newData);
+      props.searchFunction(newData);
       return;
     } else {
-      console.log(data);
+      props.searchFunction(data);
     }
   };
 

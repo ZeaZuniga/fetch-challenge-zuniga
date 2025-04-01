@@ -5,11 +5,13 @@ import { useNavigate } from "react-router-dom";
 import { Dog } from "../../utils/interfaces";
 import DogCard from "../../components/DogCard/DogCard";
 import FilterForm from "../../components/FilterForm/FilterForm";
+import { filterFormValues } from "../../utils/interfaces";
 
 export default function Homepage() {
   const [resultsIds, setResultsIds] = useState<[]>([]);
   const [dogList, setDogList] = useState<Dog[]>([]);
   const [breeds, setBreeds] = useState<[]>([]);
+  const [searchParameters, setSearchParameters] = useState<string>("");
 
   const navigate = useNavigate();
 
@@ -55,10 +57,58 @@ export default function Homepage() {
     }
   }, [resultsIds]);
 
+  const filterSearch = (filters: filterFormValues) => {
+    let baseURL = "https://frontend-take-home-service.fetch.com/dogs/search?";
+    // let trimmFilter: filterFormValues = {};
+    const paramCheck = (value: string) => {
+      if (searchParameters !== "") {
+        setSearchParameters(searchParameters.concat(`&${value}`));
+      } else if (searchParameters === "") {
+        setSearchParameters(value);
+      }
+    };
+
+    if (typeof filters.ageMin === "string" && filters.ageMin !== "") {
+      paramCheck(`ageMin=${filters.ageMin}`);
+    }
+    if (typeof filters.ageMax === "string" && filters.ageMax !== "") {
+      paramCheck(`ageMax=${filters.ageMax}`);
+    }
+    if (
+      filters.breeds &&
+      filters.breeds[0] !== "" &&
+      filters.breeds[0] !== undefined
+    ) {
+      filters.breeds.map((breed) => paramCheck(breed));
+      // trimmFilter.breeds = filters.breeds;
+    }
+    if (
+      typeof filters.zipCodes === "object" &&
+      filters.zipCodes[0] !== "" &&
+      filters.zipCodes[0] !== undefined
+    ) {
+      filters.zipCodes.map((code) => paramCheck(code));
+
+      // trimmFilter.zipCodes = filters.zipCodes;
+    }
+    console.log(searchParameters);
+
+    // let parameters = new URLSearchParams(trimmFilter).toString();
+
+    // axios
+    //   .get(baseURL.concat(parameters), { withCredentials: true })
+    //   .then((data) => {
+    //     console.log(data);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+  };
+
   if (dogList.length > 0) {
     return (
       <div className="homepage">
-        <FilterForm breedArray={breeds} />
+        <FilterForm breedArray={breeds} searchFunction={filterSearch} />
         <ul className="homepage__searchList">
           {dogList.map((dogObject: Dog, i: number) => {
             return <DogCard dogData={dogObject} key={i} />;
