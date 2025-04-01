@@ -18,7 +18,7 @@ export default function FilterForm(props: { breedArray: string[] }) {
 
   const filterSubmit = (data: filterFormValues) => {
     if (typeof data.zipCodes === "string") {
-      let zips: string[] = data.zipCodes.split(",").map((code) => code.trim());
+      let zips: string[] = data.zipCodes.split(" ").map((code) => code.trim());
 
       let newData = {
         ...data,
@@ -63,12 +63,15 @@ export default function FilterForm(props: { breedArray: string[] }) {
         }`}
       >
         <section className="filterform__container">
-          <label htmlFor="breeds">Select Breeds</label>
+          <label className="filterform__label" htmlFor="breeds">
+            Select Breeds
+          </label>
           <Select
             styles={{
               control: (baseStyles, state) => ({
                 ...baseStyles,
                 borderColor: state.isFocused ? "#ffa900" : "#890075",
+                borderRadius: "8px",
                 borderWidth: "2px",
                 boxShadow: "none",
               }),
@@ -100,43 +103,52 @@ export default function FilterForm(props: { breedArray: string[] }) {
             }
           />
         </section>
-        <section className="filterform__container">
-          <label htmlFor="ageMin" className="filterForm__label">
-            Minimum Age (in years)
-          </label>
-          <input
-            {...register("ageMin")}
-            type="number"
-            name="ageMin"
-            className="filterForm__input"
-          />
+        <section className="filterform__container filterform__container--age">
+          <div className="filterform__ageDivider">
+            <label
+              htmlFor="ageMin"
+              className="filterform__label filterform__label--age"
+            >
+              Minimum Age (in years)
+            </label>
+            <input
+              {...register("ageMin")}
+              type="number"
+              name="ageMin"
+              className="filterform__input filterform__input--age"
+            />
+          </div>
+
+          <div className="filterform__ageDivider">
+            <label
+              htmlFor="ageMax"
+              className="filterform__label filterform__label--age"
+            >
+              Maximum Age (in years)
+            </label>
+            <input
+              {...register("ageMax")}
+              type="number"
+              name="ageMax"
+              className="filterform__input filterform__input--age"
+            />
+          </div>
         </section>
         <section className="filterform__container">
-          <label htmlFor="ageMax" className="filterForm__label">
-            Maximum Age (in years)
-          </label>
-          <input
-            {...register("ageMax")}
-            type="number"
-            name="ageMax"
-            className="filterForm__input"
-          />
-        </section>
-        <section className="filterform__container">
-          <label htmlFor="zipCodes" className="filterForm__label">
-            Zip Codes (separated by comma)
+          <label htmlFor="zipCodes" className="filterform__label">
+            Zip Codes
           </label>
           <input
             {...register("zipCodes")}
             type="text"
             name="zipCodes"
-            className="filterForm__input"
+            className="filterform__input"
           />
         </section>
         <input
           type="submit"
           value="Apply Filters"
-          className="filterForm__submit"
+          className="filterform__submit"
         />
       </div>
     </form>
