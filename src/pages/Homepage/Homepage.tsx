@@ -11,7 +11,6 @@ export default function Homepage() {
   const [resultsIds, setResultsIds] = useState<[]>([]);
   const [dogList, setDogList] = useState<Dog[]>([]);
   const [breeds, setBreeds] = useState<[]>([]);
-  const [searchParameters, setSearchParameters] = useState<string>("");
 
   const navigate = useNavigate();
 
@@ -58,15 +57,19 @@ export default function Homepage() {
   }, [resultsIds]);
 
   const filterSearch = (filters: filterFormValues) => {
-    let baseURL = "https://frontend-take-home-service.fetch.com/dogs/search?";
-    // let trimmFilter: filterFormValues = {};
+    let filterParams = "";
+    let searchURL = "https://frontend-take-home-service.fetch.com/dogs/search?";
+
     const paramCheck = (value: string) => {
-      if (searchParameters !== "") {
-        setSearchParameters(searchParameters.concat(`&${value}`));
-      } else if (searchParameters === "") {
-        setSearchParameters(value);
+      if (filterParams !== "") {
+        filterParams = filterParams.concat(`&${value}`);
+      } else if (filterParams === "") {
+        filterParams = filterParams.concat(value);
       }
     };
+
+    //This if section is to replace the functionality of URLSearchParams which will not accept arrays as input.
+    //Each one of these makes sure it exists and is of the correct type before adding it to filterParams.
 
     if (typeof filters.ageMin === "string" && filters.ageMin !== "") {
       paramCheck(`ageMin=${filters.ageMin}`);
@@ -79,30 +82,27 @@ export default function Homepage() {
       filters.breeds[0] !== "" &&
       filters.breeds[0] !== undefined
     ) {
-      filters.breeds.map((breed) => paramCheck(breed));
-      // trimmFilter.breeds = filters.breeds;
+      filters.breeds.map((breed) => paramCheck(`breeds=${breed}`));
     }
     if (
       typeof filters.zipCodes === "object" &&
       filters.zipCodes[0] !== "" &&
       filters.zipCodes[0] !== undefined
     ) {
-      filters.zipCodes.map((code) => paramCheck(code));
-
-      // trimmFilter.zipCodes = filters.zipCodes;
+      filters.zipCodes.map((code) => paramCheck(`zipCodes=${code}`));
     }
-    console.log(searchParameters);
 
-    // let parameters = new URLSearchParams(trimmFilter).toString();
-
-    // axios
-    //   .get(baseURL.concat(parameters), { withCredentials: true })
-    //   .then((data) => {
-    //     console.log(data);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+    axios
+      .get(searchURL.concat(`${filterParams}`).replaceAll(" ", "%20"), {
+        withCredentials: true,
+      })
+      .then(({ data }) => {
+        let newList = data.resultIds;
+        setResultsIds(newList);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   if (dogList.length > 0) {
