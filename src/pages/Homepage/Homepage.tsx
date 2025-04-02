@@ -8,6 +8,10 @@ import FilterForm from "../../components/FilterForm/FilterForm";
 import { filterFormValues } from "../../utils/interfaces";
 
 export default function Homepage() {
+  //Regarding these useStates, the next steps for this project would be to
+  //store the states in session storage to have persistent search results
+  //through page refreshes and going back to different pages.
+
   const [resultsIds, setResultsIds] = useState<[]>([]);
   const [dogList, setDogList] = useState<Dog[]>([]);
   const [breeds, setBreeds] = useState<[]>([]);
@@ -121,6 +125,14 @@ export default function Homepage() {
             return <DogCard dogData={dogObject} key={i} />;
           })}
         </ul>
+        <button
+          onClick={(_e) => {
+            axiosGetRequest(nextSearch);
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+        >
+          Next
+        </button>
       </div>
     );
   } else {

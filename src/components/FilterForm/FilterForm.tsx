@@ -24,6 +24,7 @@ export default function FilterForm(props: FormProps) {
         zipCodes: zips,
       };
       props.searchFunction(newData);
+      setIsFormOpen(false);
       return;
     } else {
       props.searchFunction(data);
