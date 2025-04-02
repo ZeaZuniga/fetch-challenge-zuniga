@@ -11,22 +11,25 @@ export default function Homepage() {
   const [resultsIds, setResultsIds] = useState<[]>([]);
   const [dogList, setDogList] = useState<Dog[]>([]);
   const [breeds, setBreeds] = useState<[]>([]);
+  const [nextSearch, setNextSearch] = useState<string>("");
 
   const navigate = useNavigate();
 
+  const baseURL = "https://frontend-take-home-service.fetch.com";
+
   useEffect(() => {
     Promise.all([
-      axios.get("https://frontend-take-home-service.fetch.com/dogs/search", {
+      axios.get(`${baseURL}/dogs/search`, {
         withCredentials: true,
       }),
-      axios.get("https://frontend-take-home-service.fetch.com/dogs/breeds", {
+      axios.get(`${baseURL}/dogs/breeds`, {
         withCredentials: true,
       }),
     ])
       .then(function ([searchRes, breedRes]) {
         let newList = searchRes.data.resultIds;
         setResultsIds(newList);
-
+        setNextSearch(searchRes.data.next);
         setBreeds(breedRes.data);
       })
       .catch(function ([searchErr, breedErr]) {
@@ -36,10 +39,12 @@ export default function Homepage() {
       });
   }, []);
 
+  //This function takes the results of any search and sends it to the server for
+  //more information on each dog object returned.
   useEffect(() => {
     if (resultsIds.length !== 0) {
       axios
-        .post("https://frontend-take-home-service.fetch.com/dogs", resultsIds, {
+        .post(`${baseURL}/dogs`, resultsIds, {
           withCredentials: true,
         })
         .then((res) => {
@@ -56,9 +61,21 @@ export default function Homepage() {
     }
   }, [resultsIds]);
 
-  const filterSearch = (filters: filterFormValues) => {
+  const axiosGetRequest = (search: string) => {
+    axios
+      .get(baseURL.concat(search), { withCredentials: true })
+      .then((res) => {
+        let newList = res.data.resultIds;
+        setResultsIds(newList);
+        setNextSearch(res.data.next);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  const filterMakeParams = (filters: filterFormValues) => {
     let filterParams = "";
-    let searchURL = "https://frontend-take-home-service.fetch.com/dogs/search?";
 
     const paramCheck = (value: string) => {
       if (filterParams !== "") {
@@ -92,23 +109,13 @@ export default function Homepage() {
       filters.zipCodes.map((code) => paramCheck(`zipCodes=${code}`));
     }
 
-    axios
-      .get(searchURL.concat(`${filterParams}`).replaceAll(" ", "%20"), {
-        withCredentials: true,
-      })
-      .then(({ data }) => {
-        let newList = data.resultIds;
-        setResultsIds(newList);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    axiosGetRequest(`/dogs/search?${filterParams}`.replaceAll(" ", "%20"));
   };
 
   if (dogList.length > 0) {
     return (
       <div className="homepage">
-        <FilterForm breedArray={breeds} searchFunction={filterSearch} />
+        <FilterForm breedArray={breeds} searchFunction={filterMakeParams} />
         <ul className="homepage__searchList">
           {dogList.map((dogObject: Dog, i: number) => {
             return <DogCard dogData={dogObject} key={i} />;
