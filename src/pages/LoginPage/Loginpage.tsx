@@ -24,9 +24,9 @@ export default function Loginpage() {
         content,
         { withCredentials: true }
       )
-      .then((data) => {
-        console.log("User Is Logged In", data);
-        navigate("/");
+      .then(() => {
+        console.log("User Is Logged In");
+        navigate("/home");
       })
       .catch((error) => {
         console.error(error);
