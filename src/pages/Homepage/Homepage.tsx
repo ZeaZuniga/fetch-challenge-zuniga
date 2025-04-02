@@ -6,6 +6,7 @@ import { Dog } from "../../utils/interfaces";
 import DogCard from "../../components/DogCard/DogCard";
 import FilterForm from "../../components/FilterForm/FilterForm";
 import { filterFormValues } from "../../utils/interfaces";
+import SortResults from "../../components/SortResults/SortResults";
 
 export default function Homepage() {
   //Regarding these useStates, the next steps for this project would be to
@@ -16,6 +17,9 @@ export default function Homepage() {
   const [dogList, setDogList] = useState<Dog[]>([]);
   const [breeds, setBreeds] = useState<[]>([]);
   const [nextSearch, setNextSearch] = useState<string>("");
+  const [sortState, setSortState] = useState<
+    "Breed Asc" | "Breed Dsc" | "Age Asc" | "Age Dsc" | "Name Asc" | "Name Dsc"
+  >("Breed Asc");
 
   const navigate = useNavigate();
 
@@ -120,6 +124,12 @@ export default function Homepage() {
     return (
       <div className="homepage">
         <FilterForm breedArray={breeds} searchFunction={filterMakeParams} />
+        <SortResults
+          sortState={sortState}
+          setSortState={setSortState}
+          resultsList={dogList}
+          setResultsList={setDogList}
+        />
         <ul className="homepage__searchList">
           {dogList.map((dogObject: Dog, i: number) => {
             return <DogCard dogData={dogObject} key={i} />;
