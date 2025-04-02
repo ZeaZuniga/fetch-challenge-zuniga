@@ -62,12 +62,10 @@ export default function SortResults(props: SortProps) {
           { value: "Name Asc", label: "Name Ascending" },
           { value: "Name Dsc", label: "Name Descending" },
         ]}
-        // onChange={(e) =>
-        //   setValue(
-        //     "breeds",
-        //     e.map(({ value }) => value)
-        //   )
-        // }
+        defaultInputValue={props.sortState}
+        onChange={(value) => {
+          console.log(value);
+        }}
       />
       {/* <select name="sortResultsSelect" id="sortResultsSelect"></select> */}
     </div>
