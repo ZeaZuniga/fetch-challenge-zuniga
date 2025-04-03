@@ -131,9 +131,12 @@ export default function Homepage() {
           setResultsList={setDogList}
         />
         <ul className="homepage__searchList">
-          {dogList.map((dogObject: Dog, i: number) => {
-            return <DogCard dogData={dogObject} key={i} />;
-          })}
+          {dogList
+            .slice()
+            .reverse()
+            .map((dogObject: Dog, i: number) => {
+              return <DogCard dogData={dogObject} key={i} />;
+            })}
         </ul>
         <button
           onClick={(_e) => {
