@@ -59,6 +59,7 @@ export default function Homepage() {
             "There was an issue requesting Dog List data. Please try again later."
           );
           console.error(error);
+          navigate("/");
         });
     } else {
       return;
@@ -75,6 +76,9 @@ export default function Homepage() {
       })
       .catch((error) => {
         console.error(error);
+        if (error.data === "Unauthorized") {
+          navigate("/");
+        }
       });
   };
 
