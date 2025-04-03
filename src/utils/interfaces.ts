@@ -26,6 +26,7 @@ interface filterFormValues {
   zipCodes?: string | string[];
   ageMin?: string;
   ageMax?: string;
+  sort?: string;
 }
 
 export type { Dog, Location, Coordinates, filterFormValues };

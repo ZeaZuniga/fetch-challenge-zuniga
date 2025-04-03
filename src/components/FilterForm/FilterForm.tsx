@@ -11,6 +11,11 @@ interface FormProps {
   searchFunction: (filters: filterFormValues) => void;
 }
 
+interface SortOptionTypes {
+  readonly value: string;
+  readonly label: string;
+}
+
 export default function FilterForm(props: FormProps) {
   const { register, handleSubmit, setValue } = useForm<filterFormValues>();
   const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
@@ -36,14 +41,23 @@ export default function FilterForm(props: FormProps) {
     label: breed,
   }));
 
+  const sortOptions: readonly SortOptionTypes[] = [
+    { value: "breed:asc", label: "Breed A-Z" },
+    { value: "breed:desc", label: "Breed Z-A" },
+    { value: "age:asc", label: "Age Ascending" },
+    { value: "age:desc", label: "Age Descending" },
+    { value: "name:asc", label: "Name A-Z" },
+    { value: "name:desc", label: "Name Z-A" },
+  ];
+
   return (
     <form onSubmit={handleSubmit(filterSubmit)} className="filterform">
       <div
         className="filterform__tab"
         onClick={() => setIsFormOpen(!isFormOpen)}
       >
-        <img src={filter} alt="Filter Tab" className="filterform__img" />
-        <p className="filterform__header">Filters</p>
+        {/* <img src={filter} alt="Filter Tab" className="filterform__img" /> */}
+        <p className="filterform__header">Sort & Filter</p>
         <img
           src={xLightGray}
           alt="Close Filter"
@@ -62,6 +76,40 @@ export default function FilterForm(props: FormProps) {
             : " filterform__content--hidden"
         }`}
       >
+        <section className="filterform__container">
+          <label className="filterform__label" htmlFor="sort">
+            Select Sort
+          </label>
+          <Select
+            styles={{
+              control: (baseStyles, state) => ({
+                ...baseStyles,
+                borderColor: state.isFocused ? "#ffa900" : "#890075",
+                borderRadius: "8px",
+                borderWidth: "2px",
+                boxShadow: "none",
+              }),
+              menuList: (styles) => ({
+                ...styles,
+                background: "white",
+                borderRadius: "12px",
+              }),
+              option: (styles) => ({
+                ...styles,
+                color: "#300d38",
+              }),
+              menu: (base) => ({
+                ...base,
+                zIndex: 1,
+                margin: 0,
+              }),
+            }}
+            name="sort"
+            options={sortOptions}
+            defaultValue={sortOptions[0]}
+            onChange={(e) => setValue("sort", e?.value)}
+          />
+        </section>
         <section className="filterform__container">
           <label className="filterform__label" htmlFor="breeds">
             Select Breeds
