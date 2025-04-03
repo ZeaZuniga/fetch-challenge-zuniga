@@ -65,6 +65,9 @@ export default function SortResults(props: SortProps) {
             borderRadius: "8px",
             borderWidth: "2px",
             boxShadow: "none",
+            margin: "auto",
+            marginBottom: "1.6rem",
+            width: "30rem",
           }),
           menuList: (styles) => ({
             ...styles,
@@ -78,7 +81,10 @@ export default function SortResults(props: SortProps) {
           menu: (base) => ({
             ...base,
             zIndex: 1,
+            width: "30rem",
             margin: 0,
+            left: "50%",
+            transform: "translateX(-50%)",
           }),
         }}
         name="breeds"
