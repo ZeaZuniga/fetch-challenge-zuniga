@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./FavDogs.scss";
 
 export default function FavDogs(props: {
-  list?: string[];
-  editList: (newList: string[]) => void;
+  favIds: string[];
+  setFavIds: (newList: string[]) => void;
 }) {
   return (
     <div className="favdogs">
-      {props.list?.map((entry) => (
-        <p>entry</p>
+      {props.favIds.map((entry, i) => (
+        <p key={i}>{entry}</p>
       ))}
     </div>
   );

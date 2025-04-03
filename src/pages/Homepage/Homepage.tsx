@@ -23,6 +23,8 @@ export default function Homepage() {
 
   const baseURL = "https://frontend-take-home-service.fetch.com";
 
+  //known error: When reloading a page without credentials, or if the cookie
+  //has expired, the below function causes runtime error before navigating to login
   useEffect(() => {
     Promise.all([
       axios.get(`${baseURL}/dogs/search?sort=breed:asc`, {
@@ -134,7 +136,14 @@ export default function Homepage() {
             .slice()
             .reverse()
             .map((dogObject: Dog, i: number) => {
-              return <DogCard dogData={dogObject} key={i} />;
+              return (
+                <DogCard
+                  dogData={dogObject}
+                  favIds={favIds}
+                  setFavIds={setFavIds}
+                  key={i}
+                />
+              );
             })}
         </ul>
         <button
@@ -145,7 +154,7 @@ export default function Homepage() {
         >
           Next
         </button>
-        <FavDogs list={favIds} editList={setFavIds} />
+        <FavDogs favIds={favIds} setFavIds={setFavIds} />
       </div>
     );
   } else {
