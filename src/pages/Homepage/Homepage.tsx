@@ -132,19 +132,16 @@ export default function Homepage() {
       <div className="homepage">
         <FilterForm breedArray={breeds} searchFunction={filterMakeParams} />
         <ul className="homepage__searchList">
-          {dogList
-            .slice()
-            .reverse()
-            .map((dogObject: Dog, i: number) => {
-              return (
-                <DogCard
-                  dogData={dogObject}
-                  favIds={favIds}
-                  setFavIds={setFavIds}
-                  key={i}
-                />
-              );
-            })}
+          {dogList.map((dogObject: Dog, i: number) => {
+            return (
+              <DogCard
+                dogData={dogObject}
+                favIds={favIds}
+                setFavIds={setFavIds}
+                key={i}
+              />
+            );
+          })}
         </ul>
         <button
           onClick={(_e) => {
