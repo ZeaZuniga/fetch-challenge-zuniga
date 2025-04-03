@@ -31,7 +31,7 @@ export default function DogCard({ dogData, favIds, setFavIds }: DogProps) {
     } else if (!favIds?.includes(dogData.id)) {
       copyList = favIds;
       copyList.push(dogData.id);
-      setFavIds(copyList);
+      setFavIds([...copyList]);
     }
   };
 
