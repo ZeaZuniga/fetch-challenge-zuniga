@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./FilterForm.scss";
 import { useForm } from "react-hook-form";
 import Select from "react-select";
-import filter from "../../assets/icons/filterLightGray.png";
 import xLightGray from "../../assets/icons/xLightGray.png";
 import { filterFormValues } from "../../utils/interfaces";
 
@@ -17,6 +16,10 @@ interface SortOptionTypes {
 }
 
 export default function FilterForm(props: FormProps) {
+  //Next steps for this form is to store the search request in the current
+  //URLparams so that there can be persistent search results when going
+  //between pages
+
   const { register, handleSubmit, setValue } = useForm<filterFormValues>();
   const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
 
@@ -56,7 +59,6 @@ export default function FilterForm(props: FormProps) {
         className="filterform__tab"
         onClick={() => setIsFormOpen(!isFormOpen)}
       >
-        {/* <img src={filter} alt="Filter Tab" className="filterform__img" /> */}
         <p className="filterform__header">Sort & Filter</p>
         <img
           src={xLightGray}

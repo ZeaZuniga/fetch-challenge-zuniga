@@ -1,6 +1,8 @@
 @use "../../styles/partials/variables" as *;
 
 .homepage {
+  position: relative;
+
   &__searchList {
     list-style: none;
     display: flex;

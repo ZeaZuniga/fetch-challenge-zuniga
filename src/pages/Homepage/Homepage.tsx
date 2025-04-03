@@ -6,6 +6,7 @@ import { Dog } from "../../utils/interfaces";
 import DogCard from "../../components/DogCard/DogCard";
 import FilterForm from "../../components/FilterForm/FilterForm";
 import { filterFormValues } from "../../utils/interfaces";
+import FavDogs from "../../components/FavDogs/FavDogs";
 
 export default function Homepage() {
   //Regarding these useStates, the next steps for this project would be to
@@ -16,6 +17,7 @@ export default function Homepage() {
   const [dogList, setDogList] = useState<Dog[]>([]);
   const [breeds, setBreeds] = useState<[]>([]);
   const [nextSearch, setNextSearch] = useState<string>("");
+  const [favIds, setFavIds] = useState<string[]>([]);
 
   const navigate = useNavigate();
 
@@ -143,6 +145,7 @@ export default function Homepage() {
         >
           Next
         </button>
+        <FavDogs list={favIds} editList={setFavIds} />
       </div>
     );
   } else {

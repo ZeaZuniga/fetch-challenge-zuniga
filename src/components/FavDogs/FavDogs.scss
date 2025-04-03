@@ -1,0 +1,12 @@
+@use "../../styles/partials/variables" as *;
+
+.favdogs {
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
+  background-color: $FetchSecondary;
+  color: $FetchPrimaryDark;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  padding: 1rem;
+}
