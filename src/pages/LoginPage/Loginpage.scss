@@ -1,1 +1,85 @@
 @use "../../styles/partials/variables" as *;
+
+.loginPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-grow: 1;
+  row-gap: 3rem;
+
+  &__visual {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    column-gap: 3rem;
+
+    .loginPage__dog {
+      width: 10rem;
+    }
+
+    .loginPage__home {
+      width: 15rem;
+      position: relative;
+      right: -2rem;
+    }
+  }
+
+  &__loginForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: $FetchWhite;
+    padding: 2.4rem 0;
+    border-radius: 12px;
+    border: 2px solid $FetchPrimary;
+    width: 90%;
+    min-width: 30rem;
+
+    .loginForm {
+      &__header {
+        width: 20rem;
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      &__label {
+        width: 20rem;
+        font-size: 1.4rem;
+      }
+
+      &__input {
+        width: 20rem;
+        height: fit-content;
+        padding: 0.5rem 1rem;
+        border: 2px solid $FetchPrimary;
+        border-radius: 6px;
+        margin-bottom: 1.6rem;
+
+        &:focus-within {
+          outline: 0;
+          border-color: $FetchSecondary;
+        }
+
+        &:focus {
+          border-color: $FetchSecondary;
+        }
+      }
+
+      &__button {
+        background-color: $FetchPrimary;
+        border: 2px solid $FetchPrimaryDark;
+        color: $FetchWhite;
+        border-radius: 5rem;
+        padding: 8px 0;
+        font-size: 1.4rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        width: 16rem;
+        margin-top: 1rem;
+      }
+    }
+  }
+}

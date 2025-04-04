@@ -16,8 +16,6 @@ export default function Loginpage() {
   const navigate = useNavigate();
 
   const handleLogin = (content: object) => {
-    console.log(content);
-
     axios
       .post(
         "https://frontend-take-home-service.fetch.com/auth/login",
@@ -49,21 +47,27 @@ export default function Loginpage() {
         className="loginPage__loginForm"
       >
         <h2 className="loginForm__header">Log in to call your pet home!</h2>
-        <label htmlFor="fetchName">Name</label>
+        <label className="loginForm__label" htmlFor="fetchName">
+          Name
+        </label>
         <input
           {...register("name")}
-          className="loginForm__input"
+          className="loginForm__input loginForm__input--name"
           id="fetchName"
           type="text"
+          placeholder="John Doe"
         />
-        <label htmlFor="fetchEmail">Email</label>
+        <label className="loginForm__label" htmlFor="fetchEmail">
+          Email
+        </label>
         <input
           {...register("email")}
           className="loginForm__input"
           id="fetchEmail"
-          type="text"
+          type="email"
+          placeholder="email@provider.com"
         />
-        <input type="submit" value="Log In" />
+        <input className="loginForm__button" type="submit" value="Log In" />
       </form>
     </div>
   );
