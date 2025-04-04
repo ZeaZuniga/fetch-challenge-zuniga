@@ -20,13 +20,14 @@ export default function Navbar() {
           withCredentials: true,
         }
       )
-      .then((data) => {
-        alert("You have logged out!");
-        console.log("User Is Logged out", data);
-        navigate("/login");
+      .then(() => {
+        console.log("User Is Logged out");
+        closeNav();
+        navigate("/");
       })
       .catch((error) => {
         console.error(error);
+        closeNav();
         alert("There was an error logging you out.");
       });
   };
