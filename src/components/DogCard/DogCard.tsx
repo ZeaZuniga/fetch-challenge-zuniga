@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./DogCard.scss";
 import { Dog } from "../../utils/interfaces";
 import heartEmpty from "../../assets/icons/heartEmptyPrimary.png";
@@ -13,13 +13,21 @@ interface DogProps {
 export default function DogCard({ dogData, favIds, setFavIds }: DogProps) {
   const [heartChecked, setHeartChecked] = useState<boolean>(false);
 
+  useEffect(() => {
+    if (favIds.includes(dogData.id)) {
+      setHeartChecked(true);
+    } else if (!favIds.includes(dogData.id)) {
+      setHeartChecked(false);
+    }
+  }, [favIds]);
+
   const handleHeart = () => {
     setHeartChecked(!heartChecked);
 
     let copyList: string[] = [];
     let discardList: string[] = [];
 
-    if (favIds?.includes(dogData.id)) {
+    if (favIds.includes(dogData.id)) {
       favIds.forEach((tag) => {
         if (tag !== dogData.id) {
           copyList.push(tag);
@@ -28,7 +36,7 @@ export default function DogCard({ dogData, favIds, setFavIds }: DogProps) {
         }
       });
       setFavIds(copyList);
-    } else if (!favIds?.includes(dogData.id)) {
+    } else if (!favIds.includes(dogData.id)) {
       copyList = favIds;
       copyList.push(dogData.id);
       setFavIds([...copyList]);

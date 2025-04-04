@@ -69,9 +69,16 @@ export default function FavDogs(props: {
             </p>
           </div>
           <ul className="favDogs__list">
-            {currentFavDogs.map((dogObject: Dog, i: number) => {
+            {currentFavDogs.map((dogObject: Dog) => {
               return (
-                <FavCard image={dogObject.img} name={dogObject.name} key={i} />
+                <FavCard
+                  image={dogObject.img}
+                  name={dogObject.name}
+                  setFavIds={props.setFavIds}
+                  favIds={props.favIds}
+                  currentId={dogObject.id}
+                  key={dogObject.id}
+                />
               );
             })}
           </ul>
