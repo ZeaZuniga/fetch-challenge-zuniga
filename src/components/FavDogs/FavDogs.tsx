@@ -4,6 +4,7 @@ import { Dog } from "../../utils/interfaces";
 import axios from "axios";
 import fullHeart from "../../assets/icons/heartEmptyDark.png";
 import closeFav from "../../assets/icons/xPurple.png";
+import FavCard from "../FavCard/FavCard";
 
 export default function FavDogs(props: {
   favIds: string[];
@@ -31,42 +32,50 @@ export default function FavDogs(props: {
   return (
     <div
       className={
-        currentFavDogs.length > 0
-          ? "favDogs favDogs--open"
-          : "favDogs favDogs--hidden"
+        isFavListOpen ? "favDogs favDogs--open" : "favDogs favDogs--hidden"
       }
     >
       <section
-        className="favDogs__tab"
+        className={
+          isFavListOpen ? "favDogs__tab favDogs__tab--open" : "favDogs__tab"
+        }
         onClick={() => setIsFavListOpen(!isFavListOpen)}
       >
-        <p className="favDogs__number">{currentFavDogs.length}</p>
+        <p
+          className={
+            isFavListOpen
+              ? "favDogs__number favDogs__number--open"
+              : "favDogs__number"
+          }
+        >
+          {currentFavDogs.length}
+        </p>
         <img
           src={isFavListOpen ? closeFav : fullHeart}
           alt="Favorite Heart"
-          className="favDogs__heart"
+          className={
+            isFavListOpen
+              ? "favDogs__heart favDogs__heart--open"
+              : "favDogs__heart"
+          }
         />
       </section>
       {isFavListOpen && (
         <>
-          <p className="favDogs__header">
-            Liked Dog{currentFavDogs.length === 1 ? "" : "s"}
-          </p>
+          <div className="favDogs__container">
+            <p className="favDogs__count">{currentFavDogs.length}</p>
+            <p className="favDogs__header">
+              Liked Dog{currentFavDogs.length === 1 ? "" : "s"}
+            </p>
+          </div>
           <ul className="favDogs__list">
             {currentFavDogs.map((dogObject: Dog, i: number) => {
               return (
-                <li className="favDogs__dog" key={i}>
-                  <img
-                    src={dogObject.img}
-                    alt={dogObject.name}
-                    className="favDog__img"
-                  />
-                  <p className="favDog__name">{dogObject.name}</p>
-                  <button className="favDogs__remove">x</button>
-                </li>
+                <FavCard image={dogObject.img} name={dogObject.name} key={i} />
               );
             })}
           </ul>
+          <button className="favDogs__match">Find Your Match</button>
         </>
       )}
     </div>
