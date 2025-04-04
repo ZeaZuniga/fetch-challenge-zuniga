@@ -151,6 +151,7 @@ export default function Homepage() {
         >
           Next
         </button>
+        {/* {favIds[0] && <FavDogs favIds={favIds} setFavIds={setFavIds} />} */}
         <FavDogs favIds={favIds} setFavIds={setFavIds} />
       </div>
     );

@@ -1,12 +1,39 @@
 @use "../../styles/partials/variables" as *;
 
-.favdogs {
+.favDogs {
   position: sticky;
   bottom: 0;
+  left: 80%;
   z-index: 5;
   background-color: $FetchSecondary;
   color: $FetchPrimaryDark;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
   padding: 1rem;
+  width: 5rem;
+  height: 5rem;
+
+  &__tab {
+    position: relative;
+
+    .favDogs__number {
+      background-color: $FetchWhite;
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      border-radius: 50%;
+      width: 2rem;
+      height: 2rem;
+      border: 2px solid $FetchPrimaryDark;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.3rem;
+    }
+
+    .favDogs__heart {
+      width: 3.6rem;
+      height: 3rem;
+    }
+  }
 }

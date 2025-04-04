@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./DogCard.scss";
 import { Dog } from "../../utils/interfaces";
-import heartEmpty from "../../assets/icons/heartEmpty.png";
-import heartFull from "../../assets/icons/heartFull.png";
+import heartEmpty from "../../assets/icons/heartEmptyPrimary.png";
+import heartFull from "../../assets/icons/heartFullPrimary.png";
 
 interface DogProps {
   dogData: Dog;

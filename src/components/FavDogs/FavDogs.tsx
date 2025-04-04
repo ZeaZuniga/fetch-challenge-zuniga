@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./FavDogs.scss";
 import { Dog } from "../../utils/interfaces";
 import axios from "axios";
+import fullHeart from "../../assets/icons/heartEmptyDark.png";
+import closeFav from "../../assets/icons/xPurple.png";
 
 export default function FavDogs(props: {
   favIds: string[];
@@ -30,35 +32,42 @@ export default function FavDogs(props: {
     <div
       className={
         currentFavDogs.length > 0
-          ? "favdogs favdogs--open"
-          : "favdogs favdogs--hidden"
+          ? "favDogs favDogs--open"
+          : "favDogs favDogs--hidden"
       }
     >
       <section
-        className="favdogs__tab"
+        className="favDogs__tab"
         onClick={() => setIsFavListOpen(!isFavListOpen)}
       >
-        <p className="favdogs__number">{currentFavDogs.length}</p>
-        <p className="favdogs__header">
-          Liked Dog{currentFavDogs.length === 1 ? "" : "s"}
-        </p>
+        <p className="favDogs__number">{currentFavDogs.length}</p>
+        <img
+          src={isFavListOpen ? closeFav : fullHeart}
+          alt="Favorite Heart"
+          className="favDogs__heart"
+        />
       </section>
       {isFavListOpen && (
-        <ul className="favdogs__list">
-          {currentFavDogs.map((dogObject: Dog, i: number) => {
-            return (
-              <li className="favdogs__dog" key={i}>
-                <img
-                  src={dogObject.img}
-                  alt={dogObject.name}
-                  className="favDog__img"
-                />
-                <p className="favDog__name">{dogObject.name}</p>
-                <button className="favdogs__remove">x</button>
-              </li>
-            );
-          })}
-        </ul>
+        <>
+          <p className="favDogs__header">
+            Liked Dog{currentFavDogs.length === 1 ? "" : "s"}
+          </p>
+          <ul className="favDogs__list">
+            {currentFavDogs.map((dogObject: Dog, i: number) => {
+              return (
+                <li className="favDogs__dog" key={i}>
+                  <img
+                    src={dogObject.img}
+                    alt={dogObject.name}
+                    className="favDog__img"
+                  />
+                  <p className="favDog__name">{dogObject.name}</p>
+                  <button className="favDogs__remove">x</button>
+                </li>
+              );
+            })}
+          </ul>
+        </>
       )}
     </div>
   );
