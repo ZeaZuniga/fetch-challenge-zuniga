@@ -1,1 +1,48 @@
 @use "../../styles/partials/variables" as *;
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: $FetchPrimaryDark;
+  color: $FetchWhite;
+  width: 100%;
+  margin-top: 4rem;
+  padding: 3rem 1rem;
+
+  &__logo {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    row-gap: 1.6rem;
+
+    .footer__img {
+      height: 10rem;
+      width: 10rem;
+      margin-right: 1rem;
+    }
+
+    .footer__title {
+      font-size: 4rem;
+      z-index: 1;
+      width: min-content;
+      font-weight: bold;
+    }
+
+    .footer__copywrite {
+      margin: auto;
+      font-size: 1.2rem;
+      width: 19rem;
+      text-align: center;
+    }
+  }
+
+  &__lists {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+}
