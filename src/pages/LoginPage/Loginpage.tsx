@@ -33,13 +33,11 @@ export default function Loginpage() {
 
   return (
     <div className="loginPage">
-      <section className="loginPage__visual">
-        <img
-          src={dogSvg}
-          alt="A minimalist style dog."
-          className="loginPage__dog"
-        />
-      </section>
+      <img
+        src={dogSvg}
+        alt="A minimalist style dog."
+        className="loginPage__dog"
+      />
       <form
         onSubmit={handleSubmit(handleLogin)}
         className="loginPage__loginForm"
