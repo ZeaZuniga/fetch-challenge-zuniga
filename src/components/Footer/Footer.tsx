@@ -21,16 +21,24 @@ export default function Footer() {
           <h3 className="footer__header">Quick Links</h3>
           <ul className="footer__list">
             <li className="footer__link">
-              <Link to={"/home"}>Home</Link>
+              <Link className="footer__anchor" to={"/home"}>
+                Home
+              </Link>
             </li>
             <li className="footer__link">
-              <Link to={"/about"}>About</Link>
+              <Link className="footer__anchor" to={"/about"}>
+                About
+              </Link>
             </li>
             <li className="footer__link">
-              <Link to={"/contact"}>Contact</Link>
+              <Link className="footer__anchor" to={"/contact"}>
+                Contact
+              </Link>
             </li>
             <li className="footer__link">
-              <Link to={"/resources"}>Resources</Link>
+              <Link className="footer__anchor" to={"/resources"}>
+                Resources
+              </Link>
             </li>
           </ul>
         </div>
@@ -49,27 +57,38 @@ export default function Footer() {
           <h3 className="footer__header">Company</h3>
           <ul className="footer__list">
             <li className="footer__link">
-              <Link to={"/about"}>About</Link>
+              <Link className="footer__anchor" to={"/about"}>
+                About
+              </Link>
             </li>
             <li className="footer__link">
-              <Link to={"/support"}>Contact Support</Link>
+              <Link className="footer__anchor" to={"/support"}>
+                Contact Support
+              </Link>
             </li>
             <li className="footer__link">
-              <Link to={"/careers"}>Careers</Link>
+              <Link className="footer__anchor" to={"/careers"}>
+                Careers
+              </Link>
             </li>
             <li className="footer__link">
-              <Link to={"/faq"}>Frequently Asked Questions</Link>
+              <Link className="footer__anchor" to={"/faq"}>
+                Frequently Asked Questions
+              </Link>
             </li>
           </ul>
         </div>
       </section>
-      <section className="footer__disclosure">
+      <section className="footer__disclaimer">
         <h2 className="footer__disclaim-head">Disclaimer</h2>
         <p className="footer__disclaim-text">
           This React SPA was created by Zealtiel Zuniga for the submission of a
           coding challenge to demonstrate my skill and work style for a given
           task. To see the code behind this, visit{" "}
-          <a href="https://github.com/ZeaZuniga/fetch-challenge-zuniga">
+          <a
+            className="footer__disclaim-text--link"
+            href="https://github.com/ZeaZuniga/fetch-challenge-zuniga"
+          >
             this GitHub Link
           </a>{" "}
           to see the public code.
