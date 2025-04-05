@@ -10,18 +10,11 @@
 
   &__visual {
     display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-    column-gap: 3rem;
+    justify-content: center;
+    align-items: center;
 
     .loginPage__dog {
-      width: 10rem;
-    }
-
-    .loginPage__home {
-      width: 15rem;
-      position: relative;
-      right: -2rem;
+      width: 30rem;
     }
   }
 

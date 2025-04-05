@@ -1,6 +1,5 @@
 import "./Loginpage.scss";
-import dogRun from "../../assets/icons/dogRunningPurple.png";
-import home from "../../assets/icons/housePurple.png";
+import dogSvg from "../../assets/svg/dog.svg";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -36,11 +35,10 @@ export default function Loginpage() {
     <div className="loginPage">
       <section className="loginPage__visual">
         <img
-          src={dogRun}
-          alt="A minimalist style dog running home."
+          src={dogSvg}
+          alt="A minimalist style dog."
           className="loginPage__dog"
         />
-        <img src={home} alt="A dog house." className="loginPage__home" />
       </section>
       <form
         onSubmit={handleSubmit(handleLogin)}
