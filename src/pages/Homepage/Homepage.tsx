@@ -8,6 +8,7 @@ import FilterForm from "../../components/FilterForm/FilterForm";
 import { filterFormValues } from "../../utils/interfaces";
 import FavDogs from "../../components/FavDogs/FavDogs";
 import dogWalk from "../../assets/svg/dogWalk.svg";
+import Pagination from "../../components/Pagination/Pagination";
 
 export default function Homepage() {
   //Regarding these useStates, the next steps for this project would be to
@@ -18,6 +19,8 @@ export default function Homepage() {
   const [dogList, setDogList] = useState<Dog[]>([]);
   const [breeds, setBreeds] = useState<[]>([]);
   const [nextSearch, setNextSearch] = useState<string>("");
+  const [prevSearch, setPrevSearch] = useState<string>("");
+  const [totalSearch, setTotalSearch] = useState<number>(0);
   const [favIds, setFavIds] = useState<string[]>([]);
 
   const navigate = useNavigate();
@@ -39,6 +42,8 @@ export default function Homepage() {
         let newList = searchRes.data.resultIds;
         setResultsIds(newList);
         setNextSearch(searchRes.data.next);
+        console.log(nextSearch);
+        setTotalSearch(searchRes.data.total);
         setBreeds(breedRes.data);
       })
       .catch(function ([searchErr, breedErr]) {
@@ -78,6 +83,11 @@ export default function Homepage() {
         let newList = res.data.resultIds;
         setResultsIds(newList);
         setNextSearch(res.data.next);
+        setTotalSearch(res.data.total);
+        if (res.data.pre) {
+          setPrevSearch(res.data.prev);
+        }
+        window.scrollTo({ top: 0, behavior: "smooth" });
       })
       .catch((error) => {
         console.error(error);
@@ -152,14 +162,11 @@ export default function Homepage() {
             );
           })}
         </ul>
-        <button
-          onClick={(_e) => {
-            axiosGetRequest(nextSearch);
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          }}
-        >
-          Next
-        </button>
+        <Pagination
+          totalItems={totalSearch}
+          currentSearch={baseURL.concat(nextSearch)}
+          axiosGetRequest={axiosGetRequest}
+        />
         {favIds[0] && <FavDogs favIds={favIds} setFavIds={setFavIds} />}
       </div>
     );
