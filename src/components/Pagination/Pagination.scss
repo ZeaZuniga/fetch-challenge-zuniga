@@ -6,12 +6,12 @@
   align-items: center;
   list-style: none;
   column-gap: 1rem;
-  border: 2px solid transparent;
+  border: 2px solid $FetchWhite;
   width: fit-content;
   margin: 3rem auto 0;
   border-radius: 12px;
   background-color: $FetchWhite;
-  padding: 0.5rem;
+  padding: 5px;
 
   &__item {
     padding: 5px;
