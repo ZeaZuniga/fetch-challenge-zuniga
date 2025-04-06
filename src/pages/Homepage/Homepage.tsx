@@ -7,6 +7,7 @@ import DogCard from "../../components/DogCard/DogCard";
 import FilterForm from "../../components/FilterForm/FilterForm";
 import { filterFormValues } from "../../utils/interfaces";
 import FavDogs from "../../components/FavDogs/FavDogs";
+import dogWalk from "../../assets/svg/dogWalk.svg";
 
 export default function Homepage() {
   //Regarding these useStates, the next steps for this project would be to
@@ -130,6 +131,14 @@ export default function Homepage() {
   if (dogList.length > 0) {
     return (
       <div className="homepage">
+        <section className="homepage__header">
+          <img
+            src={dogWalk}
+            alt="A man walking his dog in a minimalist art style"
+            className="header__img"
+          />
+          <h1 className="header__title">Find your buddy below!</h1>
+        </section>
         <FilterForm breedArray={breeds} searchFunction={filterMakeParams} />
         <ul className="homepage__searchList">
           {dogList.map((dogObject: Dog, i: number) => {
@@ -152,7 +161,6 @@ export default function Homepage() {
           Next
         </button>
         {favIds[0] && <FavDogs favIds={favIds} setFavIds={setFavIds} />}
-        {/* <FavDogs favIds={favIds} setFavIds={setFavIds} /> */}
       </div>
     );
   } else {
