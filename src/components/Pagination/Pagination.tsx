@@ -22,23 +22,23 @@ export default function Pagination(props: {
 
   return (
     <ReactPaginate
-      nextLabel="Next >"
       onPageChange={handlePageChange}
       pageRangeDisplayed={2}
       marginPagesDisplayed={1}
       pageCount={pageCount}
-      previousLabel="< Previous"
-      pageClassName="page-item"
-      pageLinkClassName="page-link"
-      previousClassName="page-item"
-      previousLinkClassName="page-link"
-      nextClassName="page-item"
-      nextLinkClassName="page-link"
+      previousLabel="<"
+      pageClassName="pagination__item"
+      pageLinkClassName="pagination__link"
+      previousClassName="pagination__item"
+      previousLinkClassName="pagination__link"
+      nextLabel=">"
+      nextClassName="pagination__item"
+      nextLinkClassName="pagination__link"
       breakLabel="..."
-      breakClassName="page-item"
-      breakLinkClassName="page-link"
+      breakClassName="pagination__item"
+      breakLinkClassName="pagination__link"
       containerClassName="pagination"
-      activeClassName="activePage"
+      activeClassName="pagination__item--active"
       renderOnZeroPageCount={null}
     />
   );

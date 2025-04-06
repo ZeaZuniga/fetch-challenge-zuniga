@@ -1,1 +1,26 @@
 @use "../../styles/partials/variables" as *;
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  column-gap: 1rem;
+  border: 2px solid transparent;
+  width: fit-content;
+  margin: 3rem auto 0;
+  border-radius: 12px;
+  background-color: $FetchWhite;
+  padding: 0.5rem;
+
+  &__item {
+    padding: 5px;
+    border-radius: 4px;
+
+    &--active {
+      background-color: $FetchPrimary;
+      font-weight: bold;
+      color: $FetchWhite;
+    }
+  }
+}
