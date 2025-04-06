@@ -52,6 +52,7 @@ export default function Loginpage() {
           id="fetchName"
           type="text"
           placeholder="John Doe"
+          required
         />
         <label className="loginForm__label" htmlFor="fetchEmail">
           Email
@@ -62,6 +63,7 @@ export default function Loginpage() {
           id="fetchEmail"
           type="email"
           placeholder="email@provider.com"
+          required
         />
         <input className="loginForm__button" type="submit" value="Log In" />
       </form>
