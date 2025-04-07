@@ -45,13 +45,6 @@ export default function DogCard({ dogData, favIds, setFavIds }: DogProps) {
 
   return (
     <li className="dogCard">
-      <button className="dogCard__favorite" onClick={handleHeart}>
-        <img
-          className="dogCard__heart"
-          src={heartChecked ? heartFull : heartEmpty}
-          alt="Favorite Heart Icon"
-        />
-      </button>
       <div className="dogCard__container">
         <img
           src={dogData.img}
@@ -60,12 +53,20 @@ export default function DogCard({ dogData, favIds, setFavIds }: DogProps) {
         />
       </div>
       <div className="dogCard__info">
+        <button className="dogCard__favorite" onClick={handleHeart}>
+          <img
+            className="dogCard__heart"
+            src={heartChecked ? heartFull : heartEmpty}
+            alt="Favorite Heart Icon"
+          />
+        </button>
         <h3 className="dogCard__name">{dogData.name}</h3>
         <section className="dogCard__info--right">
           <p className="dogCard__breed">{dogData.breed}</p>
           <p className="dogCard__age">
             {dogData.age} year{dogData.age === 1 ? "" : "s"} old
           </p>
+          <p className="dogCard__location">{dogData.zip_code}</p>
         </section>
       </div>
     </li>
