@@ -41,34 +41,44 @@
     row-gap: 0.8rem;
     position: relative;
 
-    .dogCard__favorite {
-      position: absolute;
-      top: 1rem;
-      right: 2rem;
-      height: 2.6rem;
-      width: 2.6rem;
-      background-color: transparent;
-      border: none;
-      cursor: pointer;
+    &--top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
 
-      .dogCard__heart {
-        -webkit-filter: drop-shadow(0px 0px 3px #ffffff);
-        filter: drop-shadow(0px 0px 3px #ffffff);
+      .dogCard__favorite {
+        height: 2.6rem;
+        width: 2.6rem;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+
+        .dogCard__heart {
+          -webkit-filter: drop-shadow(0px 0px 3px #ffffff);
+          filter: drop-shadow(0px 0px 3px #ffffff);
+        }
+      }
+
+      .dogCard__name {
+        font-size: 2rem;
+        line-height: 2.6rem;
+        max-width: 24rem;
       }
     }
 
-    .dogCard__name {
-      font-size: 2rem;
-      line-height: 2.6rem;
-      max-width: 24rem;
-    }
-
-    &--right {
+    &--bottom {
       width: 100%;
       display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      row-gap: 5px;
+      font-size: 1.4rem;
+
+      .dogCard__breed {
+        width: 100%;
+      }
     }
   }
 }
