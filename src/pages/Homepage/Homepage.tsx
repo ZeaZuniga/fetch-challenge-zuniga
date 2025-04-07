@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./Homepage.scss";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Dog } from "../../utils/interfaces";
+import { Dog, Location } from "../../utils/interfaces";
 import DogCard from "../../components/DogCard/DogCard";
 import FilterForm from "../../components/FilterForm/FilterForm";
 import { filterFormValues } from "../../utils/interfaces";
@@ -45,14 +45,38 @@ export default function Homepage() {
 
   //This function takes the results of any search and sends it to the server for
   //more information on each dog object returned.
+  // To make the zipCodes for each dog easier to read for the user,
+  // the secondary axios call swaps out the zip codes
+  // with the city and state attached to the zip code.
   useEffect(() => {
     if (resultsIds.length !== 0) {
       axios
         .post(`${baseURL}/dogs`, resultsIds, {
           withCredentials: true,
         })
-        .then((res) => {
-          setDogList(res.data);
+        .then((idRes) => {
+          let idResZipCodes: string[] = [];
+          let editedDogs: Dog[] = [];
+
+          idRes.data.forEach((entry: Dog) => {
+            idResZipCodes.push(entry.zip_code);
+          });
+
+          axios
+            .post(`${baseURL}/locations`, idResZipCodes, {
+              withCredentials: true,
+            })
+            .then((locRes) => {
+              idRes.data.forEach((entry: Dog, i: number) => {
+                entry.zip_code = `${locRes.data[i].city}, ${locRes.data[i].state}`;
+                editedDogs.push(entry);
+              });
+
+              setDogList(editedDogs);
+            })
+            .catch((locErr) => {
+              console.log(locErr);
+            });
         })
         .catch((error) => {
           alert(
