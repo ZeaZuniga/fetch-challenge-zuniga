@@ -27,28 +27,18 @@ export default function Homepage() {
 
   const baseURL = "https://frontend-take-home-service.fetch.com";
 
-  //known error: When reloading a page without credentials, or if the cookie
-  //has expired, the below function causes runtime error before navigating to login
   useEffect(() => {
-    Promise.all([
-      axios.get(`${baseURL}/dogs/search?sort=breed:asc`, {
+    axiosGetRequest("/dogs/search?sort=breed:asc");
+
+    axios
+      .get(`${baseURL}/dogs/breeds`, {
         withCredentials: true,
-      }),
-      axios.get(`${baseURL}/dogs/breeds`, {
-        withCredentials: true,
-      }),
-    ])
-      .then(function ([searchRes, breedRes]) {
-        let newList = searchRes.data.resultIds;
-        setResultsIds(newList);
-        setNextSearch(searchRes.data.next);
-        console.log(nextSearch);
-        setTotalSearch(searchRes.data.total);
-        setBreeds(breedRes.data);
       })
-      .catch(function ([searchErr, breedErr]) {
-        console.log(searchErr);
-        console.log(breedErr);
+      .then((res) => {
+        setBreeds(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
         navigate("/login");
       });
   }, []);
