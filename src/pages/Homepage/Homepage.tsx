@@ -26,7 +26,6 @@ export default function Homepage(props: HomepageProps) {
   const [dogList, setDogList] = useState<Dog[]>([]);
   const [breeds, setBreeds] = useState<[]>([]);
   const [nextSearch, setNextSearch] = useState<string>("");
-  const [prevSearch, setPrevSearch] = useState<string>("");
   const [totalSearch, setTotalSearch] = useState<number>(0);
   const [favIds, setFavIds] = useState<string[]>([]);
 
@@ -105,9 +104,6 @@ export default function Homepage(props: HomepageProps) {
         setResultsIds(newList);
         setNextSearch(res.data.next);
         setTotalSearch(res.data.total);
-        if (res.data.pre) {
-          setPrevSearch(res.data.prev);
-        }
         window.scrollTo({ top: 0, behavior: "smooth" });
       })
       .catch((error) => {
