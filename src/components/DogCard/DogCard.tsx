@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { MouseEventHandler, useEffect, useState } from "react";
 import "./DogCard.scss";
 import { Dog } from "../../utils/interfaces";
 import heartEmpty from "../../assets/icons/heartEmptyPrimary.png";
@@ -23,7 +23,8 @@ export default function DogCard(props: DogProps) {
     }
   }, [props.favIds]);
 
-  const handleHeart = () => {
+  const handleHeart: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.stopPropagation();
     setHeartChecked(!heartChecked);
 
     let copyList: string[] = [];
