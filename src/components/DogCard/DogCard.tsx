@@ -8,18 +8,20 @@ interface DogProps {
   dogData: Dog;
   favIds: string[];
   setFavIds: (newList: string[]) => void;
+  setIsModalOpen: (value: boolean) => void;
+  setModalData: (data: Dog) => void;
 }
 
-export default function DogCard({ dogData, favIds, setFavIds }: DogProps) {
+export default function DogCard(props: DogProps) {
   const [heartChecked, setHeartChecked] = useState<boolean>(false);
 
   useEffect(() => {
-    if (favIds.includes(dogData.id)) {
+    if (props.favIds.includes(props.dogData.id)) {
       setHeartChecked(true);
-    } else if (!favIds.includes(dogData.id)) {
+    } else if (!props.favIds.includes(props.dogData.id)) {
       setHeartChecked(false);
     }
-  }, [favIds]);
+  }, [props.favIds]);
 
   const handleHeart = () => {
     setHeartChecked(!heartChecked);
@@ -27,34 +29,39 @@ export default function DogCard({ dogData, favIds, setFavIds }: DogProps) {
     let copyList: string[] = [];
     let discardList: string[] = [];
 
-    if (favIds.includes(dogData.id)) {
-      favIds.forEach((tag) => {
-        if (tag !== dogData.id) {
+    if (props.favIds.includes(props.dogData.id)) {
+      props.favIds.forEach((tag) => {
+        if (tag !== props.dogData.id) {
           copyList.push(tag);
-        } else if (tag === dogData.id) {
+        } else if (tag === props.dogData.id) {
           discardList.push(tag);
         }
       });
-      setFavIds(copyList);
-    } else if (!favIds.includes(dogData.id)) {
-      copyList = favIds;
-      copyList.push(dogData.id);
-      setFavIds([...copyList]);
+      props.setFavIds(copyList);
+    } else if (!props.favIds.includes(props.dogData.id)) {
+      copyList = props.favIds;
+      copyList.push(props.dogData.id);
+      props.setFavIds([...copyList]);
     }
   };
 
+  const handleModal = () => {
+    props.setModalData(props.dogData);
+    props.setIsModalOpen(true);
+  };
+
   return (
-    <li className="dogCard">
+    <li onClick={handleModal} className="dogCard">
       <div className="dogCard__container">
         <img
-          src={dogData.img}
-          alt={`Photo of ${dogData.name}`}
+          src={props.dogData.img}
+          alt={`Photo of ${props.dogData.name}`}
           className="dogCard__img"
         />
       </div>
       <div className="dogCard__info">
         <section className="dogCard__info--top">
-          <h3 className="dogCard__name">{dogData.name}</h3>
+          <h3 className="dogCard__name">{props.dogData.name}</h3>
           <button className="dogCard__favorite" onClick={handleHeart}>
             <img
               className="dogCard__heart"
@@ -64,11 +71,11 @@ export default function DogCard({ dogData, favIds, setFavIds }: DogProps) {
           </button>
         </section>
         <section className="dogCard__info--bottom">
-          <p className="dogCard__breed">{dogData.breed}</p>
+          <p className="dogCard__breed">{props.dogData.breed}</p>
           <p className="dogCard__age">
-            {dogData.age} year{dogData.age === 1 ? "" : "s"} old
+            {props.dogData.age} year{props.dogData.age === 1 ? "" : "s"} old
           </p>
-          <p className="dogCard__location">{dogData.zip_code}</p>
+          <p className="dogCard__location">{props.dogData.zip_code}</p>
         </section>
       </div>
     </li>

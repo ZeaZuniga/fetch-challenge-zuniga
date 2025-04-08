@@ -10,10 +10,17 @@ import FavDogs from "../../components/FavDogs/FavDogs";
 import dogWalk from "../../assets/svg/dogWalk.svg";
 import Pagination from "../../components/Pagination/Pagination";
 
-export default function Homepage() {
+interface HomepageProps {
+  isModalOpen: boolean;
+  setIsModalOpen: (value: boolean) => void;
+  setModalData: (data: Dog) => void;
+  getMatched: (favIds: string[]) => void;
+}
+
+export default function Homepage(props: HomepageProps) {
   //Regarding these useStates, the next steps for this project would be to
-  //store the states in session storage to have persistent search results
-  //through page refreshes and going back to different pages.
+  //store the states relating to search parameters in session storage to have
+  //persistent search results through page refreshes and going back to different pages.
 
   const [resultsIds, setResultsIds] = useState<[]>([]);
   const [dogList, setDogList] = useState<Dog[]>([]);
@@ -171,6 +178,8 @@ export default function Homepage() {
                 dogData={dogObject}
                 favIds={favIds}
                 setFavIds={setFavIds}
+                setIsModalOpen={props.setIsModalOpen}
+                setModalData={props.setModalData}
                 key={i}
               />
             );
@@ -181,7 +190,13 @@ export default function Homepage() {
           currentSearch={baseURL.concat(nextSearch)}
           axiosGetRequest={axiosGetRequest}
         />
-        {favIds[0] && <FavDogs favIds={favIds} setFavIds={setFavIds} />}
+        {favIds[0] && (
+          <FavDogs
+            favIds={favIds}
+            setFavIds={setFavIds}
+            getMatched={props.getMatched}
+          />
+        )}
       </div>
     );
   } else {

@@ -9,6 +9,7 @@ import FavCard from "../FavCard/FavCard";
 export default function FavDogs(props: {
   favIds: string[];
   setFavIds: (newList: string[]) => void;
+  getMatched: (favIds: string[]) => void;
 }) {
   const [currentFavDogs, setCurrentFavDogs] = useState<Dog[]>([]);
   const [isFavListOpen, setIsFavListOpen] = useState<boolean>(false);
@@ -28,6 +29,11 @@ export default function FavDogs(props: {
         console.error(error);
       });
   }, [props.favIds]);
+
+  const handleMatch = () => {
+    props.getMatched(props.favIds);
+    setIsFavListOpen(false);
+  };
 
   return (
     <div
@@ -82,7 +88,9 @@ export default function FavDogs(props: {
               );
             })}
           </ul>
-          <button className="favDogs__match">Find Your Match</button>
+          <button onClick={handleMatch} className="favDogs__match">
+            Find Your Match
+          </button>
         </>
       )}
     </div>
