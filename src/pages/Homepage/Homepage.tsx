@@ -45,7 +45,7 @@ export default function Homepage(props: HomepageProps) {
       })
       .catch((err) => {
         console.error(err);
-        navigate("/login");
+        navigate("/");
       });
   }, []);
 
