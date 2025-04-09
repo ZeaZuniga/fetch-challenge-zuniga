@@ -113,11 +113,17 @@ export default function Homepage(props: HomepageProps) {
     axios
       .get(baseURL.concat(search), { withCredentials: true })
       .then((res) => {
-        let newList = res.data.resultIds;
-        setResultsIds(newList);
-        setNextSearch(res.data.next);
-        setTotalSearch(res.data.total);
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        if (res.data.resultIds[0]) {
+          let newList = res.data.resultIds;
+          setResultsIds(newList);
+          setNextSearch(res.data.next);
+          setTotalSearch(res.data.total);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        } else {
+          setDogList([]);
+          setIsLoading(false);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
       })
       .catch((error) => {
         console.error(error);
@@ -195,7 +201,7 @@ export default function Homepage(props: HomepageProps) {
         </ul>
       </div>
     );
-  } else if (dogList.length > 0) {
+  } else {
     return (
       <div className="homepage">
         <section className="homepage__header">
@@ -208,32 +214,34 @@ export default function Homepage(props: HomepageProps) {
         </section>
         <FilterForm breedArray={breeds} searchFunction={filterMakeParams} />
         {dogList.length > 0 ? (
-          <ul className="homepage__searchList">
-            {dogList.map((dogObject: Dog, i: number) => {
-              return (
-                <DogCard
-                  dogData={dogObject}
-                  favIds={favIds}
-                  setFavIds={setFavIds}
-                  setIsModalOpen={props.setIsModalOpen}
-                  setModalData={props.setModalData}
-                  key={i}
-                />
-              );
-            })}
-          </ul>
+          <>
+            <ul className="homepage__searchList">
+              {dogList.map((dogObject: Dog, i: number) => {
+                return (
+                  <DogCard
+                    dogData={dogObject}
+                    favIds={favIds}
+                    setFavIds={setFavIds}
+                    setIsModalOpen={props.setIsModalOpen}
+                    setModalData={props.setModalData}
+                    key={i}
+                  />
+                );
+              })}
+            </ul>
+            <Pagination
+              totalItems={totalSearch}
+              currentSearch={baseURL.concat(nextSearch)}
+              axiosGetRequest={axiosGetRequest}
+            />
+          </>
         ) : (
-          <h1>
+          <h2 className="homepage__noResults">
             Looks like there wasn't anything matching that search query. Try a
             different search.
-          </h1>
+          </h2>
         )}
 
-        <Pagination
-          totalItems={totalSearch}
-          currentSearch={baseURL.concat(nextSearch)}
-          axiosGetRequest={axiosGetRequest}
-        />
         {favIds[0] && (
           <FavDogs
             favIds={favIds}
@@ -241,16 +249,6 @@ export default function Homepage(props: HomepageProps) {
             getMatched={props.getMatched}
           />
         )}
-      </div>
-    );
-  } else {
-    navigate("/login");
-
-    return (
-      <div className="homepage">
-        <h1>
-          There was an error loading this page. Navigating you to Login Page.
-        </h1>
       </div>
     );
   }

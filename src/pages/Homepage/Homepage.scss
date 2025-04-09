@@ -28,6 +28,16 @@
     }
   }
 
+  &__noResults {
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+    border: 2px solid $FetchPrimary;
+    border-radius: 12px;
+    background-color: $FetchWhite;
+    padding: 1rem;
+  }
+
   &__searchList {
     list-style: none;
     display: flex;
