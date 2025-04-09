@@ -18,6 +18,7 @@
     align-items: flex-end;
     flex-wrap: wrap;
     row-gap: 1.6rem;
+    width: 30rem;
 
     .footer__img {
       height: 10rem;
@@ -47,10 +48,12 @@
     flex-wrap: wrap;
     row-gap: 2.4rem;
     column-gap: 2rem;
+    width: 90%;
+    min-width: 30rem;
 
     .footer__container {
       min-width: 13rem;
-      width: 40%;
+      width: 30%;
 
       .footer__header {
         text-decoration: underline;
@@ -78,6 +81,8 @@
     align-items: center;
     flex-direction: column;
     row-gap: 1.6rem;
+    width: 90%;
+    min-width: 28rem;
 
     .footer__disclaim-head {
       text-decoration: underline;
