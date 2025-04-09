@@ -79,7 +79,7 @@ export default function FilterForm(props: FormProps) {
         }`}
       >
         <section className="filterform__container">
-          <label className="filterform__label" htmlFor="sort">
+          <label className="filterform__label" htmlFor="filterSort">
             Select Sort
           </label>
           <Select
@@ -106,6 +106,7 @@ export default function FilterForm(props: FormProps) {
                 margin: 0,
               }),
             }}
+            inputId="filterSort"
             name="sort"
             options={sortOptions}
             defaultValue={sortOptions[0]}
@@ -113,7 +114,7 @@ export default function FilterForm(props: FormProps) {
           />
         </section>
         <section className="filterform__container">
-          <label className="filterform__label" htmlFor="breeds">
+          <label className="filterform__label" htmlFor="filterBreeds">
             Select Breeds
           </label>
           <Select
@@ -140,6 +141,7 @@ export default function FilterForm(props: FormProps) {
                 margin: 0,
               }),
             }}
+            inputId="filterBreeds"
             name="breeds"
             isMulti
             closeMenuOnSelect={false}
@@ -156,7 +158,7 @@ export default function FilterForm(props: FormProps) {
         <section className="filterform__container filterform__container--age">
           <div className="filterform__ageDivider">
             <label
-              htmlFor="ageMin"
+              htmlFor="filterAgeMin"
               className="filterform__label filterform__label--age"
             >
               Minimum Age (in years)
@@ -164,6 +166,7 @@ export default function FilterForm(props: FormProps) {
             <input
               {...register("ageMin")}
               type="number"
+              id="filterAgeMin"
               name="ageMin"
               className="filterform__input filterform__input--age"
             />
@@ -171,7 +174,7 @@ export default function FilterForm(props: FormProps) {
 
           <div className="filterform__ageDivider">
             <label
-              htmlFor="ageMax"
+              htmlFor="filterAgeMax"
               className="filterform__label filterform__label--age"
             >
               Maximum Age (in years)
@@ -179,18 +182,20 @@ export default function FilterForm(props: FormProps) {
             <input
               {...register("ageMax")}
               type="number"
+              id="filterAgeMax"
               name="ageMax"
               className="filterform__input filterform__input--age"
             />
           </div>
         </section>
         <section className="filterform__container">
-          <label htmlFor="zipCodes" className="filterform__label">
+          <label htmlFor="filterZipCodes" className="filterform__label">
             Zip Codes
           </label>
           <input
             {...register("zipCodes")}
             type="text"
+            id="filterZipCodes"
             name="zipCodes"
             className="filterform__input"
           />
