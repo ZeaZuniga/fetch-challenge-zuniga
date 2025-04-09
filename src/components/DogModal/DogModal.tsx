@@ -86,7 +86,7 @@ export default function DogModal(props: {
           className="dogModal__img"
         />
         <div className="dogModal__info">
-          <h1>{props.modalData.name}</h1>
+          <h1 className="dogModal__name">{props.modalData.name}</h1>
           <p className="dogModal__text">
             {props.modalData.name} is {adjectives[getRandomInt(0, 21)]}{" "}
             {props.modalData.age} year-old {props.modalData.breed} from{" "}
