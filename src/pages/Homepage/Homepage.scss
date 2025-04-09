@@ -38,4 +38,56 @@
     width: 28rem;
     margin: 0 auto;
   }
+
+  .loading {
+    &__button {
+      width: 28rem;
+      height: 4rem;
+      border-radius: 12px;
+      background-color: gray;
+      margin: 0 auto;
+    }
+
+    &__list {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      row-gap: 2rem;
+      margin-top: 2rem;
+
+      .loading__card {
+        background-color: $FetchPrimaryDark;
+        height: 14rem;
+        width: 28rem;
+        border-radius: 12px;
+        overflow: hidden;
+
+        &--top {
+          height: 50%;
+          width: 100%;
+        }
+
+        &--bottom {
+          background-color: LightGray;
+          height: 50%;
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: flex-start;
+          flex-direction: column;
+          row-gap: 1.6rem;
+          padding-left: 2rem;
+
+          .loading__card--text {
+            height: 1.6rem;
+            width: 12rem;
+            background-color: $FetchPrimaryDark;
+            border-radius: 4px;
+          }
+        }
+      }
+    }
+  }
 }

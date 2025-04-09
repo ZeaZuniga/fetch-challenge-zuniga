@@ -9,6 +9,7 @@ import { filterFormValues } from "../../utils/interfaces";
 import FavDogs from "../../components/FavDogs/FavDogs";
 import dogWalk from "../../assets/svg/dogWalk.svg";
 import Pagination from "../../components/Pagination/Pagination";
+import dogLost from "../../assets/svg/personLost.svg";
 
 interface HomepageProps {
   isModalOpen: boolean;
@@ -22,6 +23,7 @@ export default function Homepage(props: HomepageProps) {
   //store the states relating to search parameters in session storage to have
   //persistent search results through page refreshes and going back to different pages.
 
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [resultsIds, setResultsIds] = useState<[]>([]);
   const [dogList, setDogList] = useState<Dog[]>([]);
   const [breeds, setBreeds] = useState<[]>([]);
@@ -54,6 +56,12 @@ export default function Homepage(props: HomepageProps) {
   // To make the zipCodes for each dog easier to read for the user,
   // the secondary axios call swaps out the zip codes
   // with the city and state attached to the zip code.
+
+  //One known error is when making filter request for "African Hunting Dog"
+  //With no other changes, the zip code from "yMD-OZUBBPFf4ZNZzDmI" Willard
+  //Returns from post /locations as null, causing a rendering error. Without
+  //Being able to resolve this issue itself, I just skipped swapping the zip
+  //Code with the city/state for the brevity of this challenge.
   useEffect(() => {
     if (resultsIds.length !== 0) {
       axios
@@ -74,11 +82,14 @@ export default function Homepage(props: HomepageProps) {
             })
             .then((locRes) => {
               idRes.data.forEach((entry: Dog, i: number) => {
-                entry.zip_code = `${locRes.data[i].city}, ${locRes.data[i].state}`;
+                if (locRes.data[i] !== null) {
+                  entry.zip_code = `${locRes.data[i].city}, ${locRes.data[i].state}`;
+                }
                 editedDogs.push(entry);
               });
 
               setDogList(editedDogs);
+              setIsLoading(false);
             })
             .catch((locErr) => {
               console.log(locErr);
@@ -97,6 +108,8 @@ export default function Homepage(props: HomepageProps) {
   }, [resultsIds]);
 
   const axiosGetRequest = (search: string) => {
+    setIsLoading(true);
+
     axios
       .get(baseURL.concat(search), { withCredentials: true })
       .then((res) => {
@@ -155,7 +168,34 @@ export default function Homepage(props: HomepageProps) {
     axiosGetRequest(`/dogs/search?${filterParams}`.replaceAll(" ", "%20"));
   };
 
-  if (dogList.length > 0) {
+  if (isLoading) {
+    return (
+      <div className="homepage">
+        <section className="homepage__header homepage__header--loading">
+          <img
+            src={dogLost}
+            alt="A man looking for his dog in a minimalist art style"
+            className="header__img header__img--loading"
+          />
+          <h1 className="header__title header__title--loading">
+            Loading dogs!
+          </h1>
+        </section>
+        <section className="loading__button"></section>
+        <ul className="loading__list">
+          {Array.from({ length: 6 }, (_, i) => (
+            <li className="loading__card" key={i}>
+              <div className="loading__card--top"></div>
+              <div className="loading__card--bottom">
+                <p className="loading__card--text"></p>
+                <p className="loading__card--text"></p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  } else if (dogList.length > 0) {
     return (
       <div className="homepage">
         <section className="homepage__header">
@@ -167,20 +207,28 @@ export default function Homepage(props: HomepageProps) {
           <h1 className="header__title">Find your buddy below!</h1>
         </section>
         <FilterForm breedArray={breeds} searchFunction={filterMakeParams} />
-        <ul className="homepage__searchList">
-          {dogList.map((dogObject: Dog, i: number) => {
-            return (
-              <DogCard
-                dogData={dogObject}
-                favIds={favIds}
-                setFavIds={setFavIds}
-                setIsModalOpen={props.setIsModalOpen}
-                setModalData={props.setModalData}
-                key={i}
-              />
-            );
-          })}
-        </ul>
+        {dogList.length > 0 ? (
+          <ul className="homepage__searchList">
+            {dogList.map((dogObject: Dog, i: number) => {
+              return (
+                <DogCard
+                  dogData={dogObject}
+                  favIds={favIds}
+                  setFavIds={setFavIds}
+                  setIsModalOpen={props.setIsModalOpen}
+                  setModalData={props.setModalData}
+                  key={i}
+                />
+              );
+            })}
+          </ul>
+        ) : (
+          <h1>
+            Looks like there wasn't anything matching that search query. Try a
+            different search.
+          </h1>
+        )}
+
         <Pagination
           totalItems={totalSearch}
           currentSearch={baseURL.concat(nextSearch)}
@@ -196,9 +244,13 @@ export default function Homepage(props: HomepageProps) {
       </div>
     );
   } else {
+    navigate("/login");
+
     return (
       <div className="homepage">
-        <h2>Homepage</h2>
+        <h1>
+          There was an error loading this page. Navigating you to Login Page.
+        </h1>
       </div>
     );
   }
