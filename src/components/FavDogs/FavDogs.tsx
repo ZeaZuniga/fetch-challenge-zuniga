@@ -36,11 +36,7 @@ export default function FavDogs(props: {
   };
 
   return (
-    <div
-      className={
-        isFavListOpen ? "favDogs favDogs--open" : "favDogs favDogs--hidden"
-      }
-    >
+    <div className={isFavListOpen ? "favDogs favDogs--open" : "favDogs"}>
       <section
         className={
           isFavListOpen ? "favDogs__tab favDogs__tab--open" : "favDogs__tab"
