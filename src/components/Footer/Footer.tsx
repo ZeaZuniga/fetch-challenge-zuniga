@@ -40,6 +40,11 @@ export default function Footer() {
                 Resources
               </Link>
             </li>
+            <li className="footer__link">
+              <Link className="footer__anchor" to={"/"}>
+                Login
+              </Link>
+            </li>
           </ul>
         </div>
         <div className="footer__container">

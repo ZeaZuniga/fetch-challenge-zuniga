@@ -4,7 +4,7 @@ import pawPrint from "../../assets/icons/pawPrintColor.png";
 import { useState } from "react";
 import openMenu from "../../assets/icons/menuPurple.png";
 import closeMenu from "../../assets/icons/xPurple.png";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
@@ -28,7 +28,8 @@ export default function Navbar() {
       .catch((error) => {
         console.error(error);
         closeNav();
-        alert("There was an error logging you out.");
+        alert("There was an error logging you out. Navigating to Login Page.");
+        navigate("/");
       });
   };
 
@@ -38,14 +39,14 @@ export default function Navbar() {
 
   return (
     <div className="navbar">
-      <section className="navbar__logo">
+      <Link to={"/home"} onClick={closeNav} className="navbar__logo">
         <img
           className="navbar__img"
           src={pawPrint}
           alt="The Here Boy Logo: A Dog's Paw Print"
         />
         <p className="navbar__title">Here Boy</p>
-      </section>
+      </Link>
       <button
         onClick={() => {
           setIsNavOpen(!isNavOpen);
@@ -63,6 +64,11 @@ export default function Navbar() {
           isNavOpen ? " navbar__list--open" : " navbar__list--hidden"
         }`}
       >
+        <li className="navbar__item">
+          <NavLink onClick={closeNav} to={"/home"}>
+            Home
+          </NavLink>
+        </li>
         <li className="navbar__item">
           <NavLink onClick={closeNav} to={"/about"}>
             About
