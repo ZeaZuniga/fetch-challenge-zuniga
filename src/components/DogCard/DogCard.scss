@@ -1,7 +1,8 @@
 @use "../../styles/partials/variables" as *;
 
 .dogCard {
-  width: 100%;
+  width: 90%;
+  min-width: 28rem;
   height: fit-content;
   display: flex;
   justify-content: center;
@@ -11,6 +12,17 @@
   overflow: hidden;
   background-color: white;
   filter: drop-shadow(rgba(0, 0, 0, 0.1) 5px 5px 8px);
+
+  @media (min-width: 400px) {
+    width: 45%;
+    min-width: 17.5rem;
+    max-width: 28rem;
+  }
+
+  @media (min-width: 650px) {
+    width: 30%;
+    max-width: 22rem;
+  }
 
   &__container {
     height: 14rem;
@@ -34,6 +46,7 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    justify-items: flex-start;
     flex-direction: column;
     width: 100%;
     height: fit-content;
@@ -75,6 +88,7 @@
       flex-wrap: wrap;
       row-gap: 5px;
       font-size: 1.4rem;
+      column-gap: 1rem;
 
       .dogCard__breed {
         width: 100%;
