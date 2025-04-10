@@ -1,4 +1,5 @@
 @use "../../styles/partials/variables" as *;
+@use "../../styles//partials//mixins" as *;
 
 .footer {
   display: flex;
@@ -11,6 +12,11 @@
   margin-top: 4rem;
   padding: 3rem 2rem;
   row-gap: 4rem;
+
+  @include tablet-design {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 
   &__logo {
     display: flex;
@@ -51,6 +57,10 @@
     width: 90%;
     min-width: 30rem;
 
+    @include tablet-design {
+      width: fit-content;
+    }
+
     .footer__container {
       min-width: 13rem;
       width: 30%;
@@ -83,6 +93,7 @@
     row-gap: 1.6rem;
     width: 90%;
     min-width: 28rem;
+    max-width: 80rem;
 
     .footer__disclaim-head {
       text-decoration: underline;
