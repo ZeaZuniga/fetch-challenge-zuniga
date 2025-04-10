@@ -15,6 +15,14 @@
   z-index: 10;
   top: 0;
 
+  @include tablet-design {
+    flex-wrap: nowrap;
+  }
+
+  @include desktop-design {
+    background-color: blue;
+  }
+
   &__logo {
     display: flex;
     justify-content: flex-start;
@@ -42,6 +50,11 @@
     height: 3rem;
     margin-top: 1rem;
     align-self: flex-start;
+    cursor: pointer;
+
+    @include tablet-design {
+      display: none;
+    }
   }
 
   &__list {
@@ -54,12 +67,23 @@
     width: 100%;
     padding-bottom: 2rem;
 
+    @include tablet-design {
+      flex-direction: row;
+      width: fit-content;
+      padding: 0;
+      column-gap: 1.6rem;
+    }
+
     &--open {
       display: flex;
     }
 
     &--hidden {
       display: none;
+
+      @include tablet-design {
+        display: flex;
+      }
     }
 
     .navbar__item {
@@ -67,17 +91,38 @@
       font-weight: bold;
       letter-spacing: 1px;
 
+      @include tablet-design {
+        font-size: 1.6rem;
+        font-weight: bold;
+      }
+
+      &:hover {
+        color: $FetchPrimary;
+        text-decoration: underline;
+        text-underline-offset: 8px;
+      }
+
       .navbar__button {
         background-color: $FetchPrimary;
         border: 2px solid $FetchPrimary;
         color: $FetchWhite;
         border-radius: 5rem;
-        padding: 1rem 0;
+        padding: 0.8rem 0;
         width: 15rem;
-        font-size: 1.5rem;
+        font-size: 1.3rem;
         text-transform: uppercase;
-        letter-spacing: 1px;
+        letter-spacing: 2px;
         font-weight: bold;
+        cursor: pointer;
+
+        @include tablet-design {
+          width: 12rem;
+        }
+
+        &:hover {
+          background-color: $FetchPrimaryDark;
+          border-color: $FetchPrimaryDark;
+        }
       }
     }
   }
