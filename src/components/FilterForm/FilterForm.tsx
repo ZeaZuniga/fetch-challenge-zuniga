@@ -80,7 +80,7 @@ export default function FilterForm(props: FormProps) {
       >
         <section className="filterform__container">
           <label className="filterform__label" htmlFor="filterSort">
-            Select Sort
+            Sort by...
           </label>
           <Select
             styles={{
