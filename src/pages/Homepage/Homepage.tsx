@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./Homepage.scss";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Dog, Location } from "../../utils/interfaces";
+import { Dog } from "../../utils/interfaces";
 import DogCard from "../../components/DogCard/DogCard";
 import FilterForm from "../../components/FilterForm/FilterForm";
 import { filterFormValues } from "../../utils/interfaces";
@@ -177,28 +177,32 @@ export default function Homepage(props: HomepageProps) {
   if (isLoading) {
     return (
       <div className="homepage">
-        <section className="homepage__header homepage__header--loading">
-          <img
-            src={dogLost}
-            alt="A man looking for his dog in a minimalist art style"
-            className="header__img header__img--loading"
-          />
-          <h1 className="header__title header__title--loading">
-            Loading dogs!
-          </h1>
+        <section className="homepage__headContainer">
+          <div className="homepage__header homepage__header--loading">
+            <img
+              src={dogLost}
+              alt="A man looking for his dog in a minimalist art style"
+              className="header__img header__img--loading"
+            />
+            <h1 className="header__title header__title--loading">
+              Loading dogs!
+            </h1>
+          </div>
         </section>
-        <section className="loading__button"></section>
-        <ul className="loading__list">
-          {Array.from({ length: 6 }, (_, i) => (
-            <li className="loading__card" key={i}>
-              <div className="loading__card--top"></div>
-              <div className="loading__card--bottom">
-                <p className="loading__card--text"></p>
-                <p className="loading__card--text"></p>
-              </div>
-            </li>
-          ))}
-        </ul>
+        <section className="homepage__contentContainer">
+          <div className="loading__button"></div>
+          <ul className="loading__list">
+            {Array.from({ length: 6 }, (_, i) => (
+              <li className="loading__card" key={i}>
+                <div className="loading__card--top"></div>
+                <div className="loading__card--bottom">
+                  <p className="loading__card--text"></p>
+                  <p className="loading__card--text"></p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
       </div>
     );
   } else {
