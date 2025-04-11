@@ -16,6 +16,11 @@
   &__item {
     padding: 5px;
     border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba($FetchPrimary, 0.4);
+    }
 
     &--active {
       background-color: $FetchPrimary;
