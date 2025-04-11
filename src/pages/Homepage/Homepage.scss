@@ -1,8 +1,16 @@
 @use "../../styles/partials/variables" as *;
+@use "../../styles/partials//mixins" as *;
 
 .homepage {
   position: relative;
   width: 100%;
+
+  @include tablet-design {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
 
   &__header {
     padding: 3rem 0;
@@ -19,16 +27,33 @@
     width: 90%;
     max-width: 55rem;
 
+    @include tablet-design {
+      flex-direction: row;
+      justify-content: space-evenly;
+      padding: 3rem;
+      max-width: 74rem;
+      width: 73%;
+    }
+
     .header__img {
       width: 64%;
       min-width: 20rem;
       max-width: 25rem;
+
+      @include tablet-design {
+        max-width: none;
+        width: 40%;
+      }
     }
 
     .header__title {
       font-size: 3rem;
       text-align: center;
       max-width: 70%;
+
+      @include tablet-design {
+        max-width: 20rem;
+      }
     }
   }
 
@@ -53,6 +78,11 @@
     width: 100%;
     min-width: 28rem;
     padding: 0 1rem;
+
+    @include tablet-design {
+      max-width: 62%;
+      justify-content: space-evenly;
+    }
   }
 
   .loading {

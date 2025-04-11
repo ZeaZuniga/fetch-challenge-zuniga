@@ -1,4 +1,5 @@
 @use "../../styles/partials/variables" as *;
+@use "../../styles/partials//mixins" as *;
 
 .filterform {
   background-color: $FetchPrimary;
@@ -9,6 +10,14 @@
   width: 80%;
   margin: auto;
   margin-bottom: 1.6rem;
+
+  @include tablet-design {
+    width: 26rem;
+    min-width: initial;
+    margin: 0;
+    position: sticky;
+    top: 9rem;
+  }
 
   &__tab {
     display: flex;
@@ -35,6 +44,10 @@
 
       &--open {
         display: initial;
+
+        @include tablet-design {
+          display: none;
+        }
       }
 
       &--hidden {
@@ -53,6 +66,10 @@
 
     &--hidden {
       display: none;
+
+      @include tablet-design {
+        display: flex;
+      }
     }
 
     &--open {
