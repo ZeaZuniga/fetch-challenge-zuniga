@@ -3,6 +3,8 @@ import "./Pagination.scss";
 import ReactPaginate from "react-paginate";
 
 export default function Pagination(props: {
+  pageNumber: number;
+  setPageNumber: (selectedPage: number) => void;
   totalItems: number;
   currentSearch: string;
   axiosGetRequest: (newParams: string) => void;

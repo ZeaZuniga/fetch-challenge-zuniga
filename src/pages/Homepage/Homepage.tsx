@@ -30,6 +30,7 @@ export default function Homepage(props: HomepageProps) {
   const [nextSearch, setNextSearch] = useState<string>("");
   const [totalSearch, setTotalSearch] = useState<number>(0);
   const [favIds, setFavIds] = useState<string[]>([]);
+  const [pageNumber, setPageNumber] = useState<number>(0);
 
   const navigate = useNavigate();
 
@@ -174,10 +175,15 @@ export default function Homepage(props: HomepageProps) {
     axiosGetRequest(`/dogs/search?${filterParams}`.replaceAll(" ", "%20"));
   };
 
-  if (isLoading) {
-    return (
-      <div className="homepage">
-        <section className="homepage__headContainer">
+  //The conditional rendering is structure like this because of a known issue when unmounting
+  //And remounting the Pagination element where it treats every page like the first since it
+  //Defaults to 1st page on each render. Keeping it rendered even through loading states
+  //Is my quick workaround to this issue. Original idea (as evident in the git commits) was
+  //To have an entire loading screen to minimize code, but this will have to do for now.
+  return (
+    <div className="homepage">
+      <section className="homepage__headContainer">
+        {isLoading ? (
           <div className="homepage__header homepage__header--loading">
             <img
               src={dogLost}
@@ -188,27 +194,7 @@ export default function Homepage(props: HomepageProps) {
               Loading dogs!
             </h1>
           </div>
-        </section>
-        <section className="homepage__contentContainer">
-          <div className="loading__button"></div>
-          <ul className="loading__list">
-            {Array.from({ length: 6 }, (_, i) => (
-              <li className="loading__card" key={i}>
-                <div className="loading__card--top"></div>
-                <div className="loading__card--bottom">
-                  <p className="loading__card--text"></p>
-                  <p className="loading__card--text"></p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </section>
-      </div>
-    );
-  } else {
-    return (
-      <div className="homepage">
-        <section className="homepage__headContainer">
+        ) : (
           <div className="homepage__header">
             <img
               src={dogWalk}
@@ -217,47 +203,66 @@ export default function Homepage(props: HomepageProps) {
             />
             <h1 className="header__title">Find your buddy below!</h1>
           </div>
-        </section>
-        <section className="homepage__contentContainer">
+        )}
+      </section>
+      <section className="homepage__contentContainer">
+        {isLoading ? (
+          <div className="loading__button"></div>
+        ) : (
           <FilterForm breedArray={breeds} searchFunction={filterMakeParams} />
-          {dogList.length > 0 ? (
-            <div className="homepage__listContainer">
-              <ul className="homepage__searchList">
-                {dogList.map((dogObject: Dog, i: number) => {
-                  return (
-                    <DogCard
-                      dogData={dogObject}
-                      favIds={favIds}
-                      setFavIds={setFavIds}
-                      setIsModalOpen={props.setIsModalOpen}
-                      setModalData={props.setModalData}
-                      key={i}
-                    />
-                  );
-                })}
-              </ul>
-              <Pagination
-                totalItems={totalSearch}
-                currentSearch={baseURL.concat(nextSearch)}
-                axiosGetRequest={axiosGetRequest}
-              />
-            </div>
-          ) : (
+        )}
+        <div className="homepage__listContainer">
+          {isLoading && (
+            <ul className="loading__list">
+              {Array.from({ length: 6 }, (_, i) => (
+                <li className="loading__card" key={i}>
+                  <div className="loading__card--top"></div>
+                  <div className="loading__card--bottom">
+                    <p className="loading__card--text"></p>
+                    <p className="loading__card--text"></p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+          {!isLoading && dogList.length > 0 && (
+            <ul className="homepage__searchList">
+              {dogList.map((dogObject: Dog, i: number) => {
+                return (
+                  <DogCard
+                    dogData={dogObject}
+                    favIds={favIds}
+                    setFavIds={setFavIds}
+                    setIsModalOpen={props.setIsModalOpen}
+                    setModalData={props.setModalData}
+                    key={i}
+                  />
+                );
+              })}
+            </ul>
+          )}
+          {!isLoading && dogList.length < 1 && (
             <h2 className="homepage__noResults">
               Looks like there wasn't anything matching that search query. Try a
               different search.
             </h2>
           )}
-        </section>
-
-        {favIds[0] && (
-          <FavDogs
-            favIds={favIds}
-            setFavIds={setFavIds}
-            getMatched={props.getMatched}
+          <Pagination
+            pageNumber={pageNumber}
+            setPageNumber={setPageNumber}
+            totalItems={totalSearch}
+            currentSearch={baseURL.concat(nextSearch)}
+            axiosGetRequest={axiosGetRequest}
           />
-        )}
-      </div>
-    );
-  }
+        </div>
+      </section>
+      {favIds[0] && (
+        <FavDogs
+          favIds={favIds}
+          setFavIds={setFavIds}
+          getMatched={props.getMatched}
+        />
+      )}
+    </div>
+  );
 }
