@@ -204,43 +204,47 @@ export default function Homepage(props: HomepageProps) {
   } else {
     return (
       <div className="homepage">
-        <section className="homepage__header">
-          <img
-            src={dogWalk}
-            alt="A man walking his dog in a minimalist art style"
-            className="header__img"
-          />
-          <h1 className="header__title">Find your buddy below!</h1>
-        </section>
-        <FilterForm breedArray={breeds} searchFunction={filterMakeParams} />
-        {dogList.length > 0 ? (
-          <>
-            <ul className="homepage__searchList">
-              {dogList.map((dogObject: Dog, i: number) => {
-                return (
-                  <DogCard
-                    dogData={dogObject}
-                    favIds={favIds}
-                    setFavIds={setFavIds}
-                    setIsModalOpen={props.setIsModalOpen}
-                    setModalData={props.setModalData}
-                    key={i}
-                  />
-                );
-              })}
-            </ul>
-            <Pagination
-              totalItems={totalSearch}
-              currentSearch={baseURL.concat(nextSearch)}
-              axiosGetRequest={axiosGetRequest}
+        <section className="homepage__headContainer">
+          <div className="homepage__header">
+            <img
+              src={dogWalk}
+              alt="A man walking his dog in a minimalist art style"
+              className="header__img"
             />
-          </>
-        ) : (
-          <h2 className="homepage__noResults">
-            Looks like there wasn't anything matching that search query. Try a
-            different search.
-          </h2>
-        )}
+            <h1 className="header__title">Find your buddy below!</h1>
+          </div>
+        </section>
+        <section className="homepage__contentContainer">
+          <FilterForm breedArray={breeds} searchFunction={filterMakeParams} />
+          {dogList.length > 0 ? (
+            <div className="homepage__listContainer">
+              <ul className="homepage__searchList">
+                {dogList.map((dogObject: Dog, i: number) => {
+                  return (
+                    <DogCard
+                      dogData={dogObject}
+                      favIds={favIds}
+                      setFavIds={setFavIds}
+                      setIsModalOpen={props.setIsModalOpen}
+                      setModalData={props.setModalData}
+                      key={i}
+                    />
+                  );
+                })}
+              </ul>
+              <Pagination
+                totalItems={totalSearch}
+                currentSearch={baseURL.concat(nextSearch)}
+                axiosGetRequest={axiosGetRequest}
+              />
+            </div>
+          ) : (
+            <h2 className="homepage__noResults">
+              Looks like there wasn't anything matching that search query. Try a
+              different search.
+            </h2>
+          )}
+        </section>
 
         {favIds[0] && (
           <FavDogs
