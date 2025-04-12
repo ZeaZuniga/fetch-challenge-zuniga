@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export default function Footer() {
   return (
     <div className="footer">
-      <section className="footer__logo">
+      <Link to={"/home"} className="footer__logo">
         <img
           className="footer__img"
           src={pawPrint}
@@ -15,7 +15,7 @@ export default function Footer() {
         <p className="footer__copywrite">
           ©2025 Zuniga Web Development, No rights reserved
         </p>
-      </section>
+      </Link>
       <section className="footer__lists">
         <div className="footer__container">
           <h3 className="footer__header">Quick Links</h3>
