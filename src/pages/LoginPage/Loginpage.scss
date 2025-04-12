@@ -60,7 +60,7 @@
 
       &__button {
         background-color: $FetchPrimary;
-        border: 2px solid $FetchPrimaryDark;
+        border: 2px solid $FetchPrimary;
         color: $FetchWhite;
         border-radius: 5rem;
         padding: 8px 0;
@@ -70,6 +70,12 @@
         letter-spacing: 1px;
         width: 16rem;
         margin-top: 1rem;
+        cursor: pointer;
+
+        &:hover {
+          background-color: $FetchPrimaryDark;
+          border-color: $FetchPrimaryDark;
+        }
       }
     }
   }

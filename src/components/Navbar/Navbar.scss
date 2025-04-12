@@ -20,7 +20,7 @@
   }
 
   @include desktop-design {
-    background-color: blue;
+    max-width: 154rem;
   }
 
   &__logo {
