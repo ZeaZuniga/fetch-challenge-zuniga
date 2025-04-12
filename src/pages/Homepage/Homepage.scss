@@ -12,6 +12,10 @@
     flex-wrap: wrap;
   }
 
+  @include desktop-design {
+    max-width: 154rem;
+  }
+
   &__headContainer {
     width: 100%;
 
@@ -42,14 +46,22 @@
         width: 73%;
       }
 
+      @include desktop-design {
+        max-width: 90rem;
+      }
+
       .header__img {
         width: 64%;
         min-width: 20rem;
         max-width: 25rem;
 
         @include tablet-design {
-          max-width: none;
+          max-width: 27rem;
           width: 40%;
+        }
+
+        @include desktop-design {
+          max-width: 29rem;
         }
       }
 
@@ -60,6 +72,11 @@
 
         @include tablet-design {
           max-width: 20rem;
+        }
+
+        @include desktop-design {
+          font-size: 5rem;
+          max-width: 33rem;
         }
       }
     }
@@ -73,6 +90,10 @@
       column-gap: 2rem;
     }
 
+    @include desktop-design {
+      padding: 0 3rem;
+    }
+
     .homepage__listContainer {
       @include tablet-design {
         display: flex;
@@ -80,6 +101,11 @@
         align-items: center;
         flex-direction: column;
         max-width: 60%;
+      }
+
+      @include desktop-design {
+        width: fit-content;
+        max-width: 80%;
       }
 
       .homepage__searchList {
@@ -97,6 +123,10 @@
         @include tablet-design {
           justify-content: space-evenly;
           padding: 0;
+        }
+
+        @media (min-width: 1500px) {
+          column-gap: 0;
         }
       }
     }
