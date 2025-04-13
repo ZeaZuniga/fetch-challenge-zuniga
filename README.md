@@ -1,46 +1,102 @@
-# Getting Started with Create React App
+# Fetch Coding Challenge: Here Boy!
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This React SPA was built for the Fetch Coding Challenge.
 
-## Available Scripts
+Here Boy! is a fictional dog adoption website where users can log in, browse the collection of dogs available, and select favorite dogs to find their perfect match.
 
-In the project directory, you can run:
+## Run Locally
 
-### `npm start`
+Clone the project
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```bash
+  git clone https://github.com/ZeaZuniga/fetch-challenge-zuniga.git
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Go to the project directory
 
-### `npm test`
+```bash
+  cd my-project
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Install dependencies
 
-### `npm run build`
+```bash
+  npm install
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Start the server
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+  npm run start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## How To Use
 
-### `npm run eject`
+- Either go to [Here Boy!](https://hereboycodechallenge.netlify.app/) or run the project locally.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Log in with your name and an email address.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Scroll the initial list of dogs with the page selector at the bottom of the list.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- Click on a dog card to see the a brief description about the dog.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- To search for specific features, enter search/filter parameters in the purple Search/Filters box.
 
-## Learn More
+- Click "Apply Filters" to apply specified search/filter parameters
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Once you find a dog you like, click the heart on the dog card to save it to your Favorite Dogs List.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- When you have saved a few of your favorite dogs, open the Favorite Dogs List by clicking the yellow tab on the bottom right of the screen.
+
+- With the Favorite Dogs List open, you can see the dogs you've liked along with the option to "Find Your Match."
+
+- Click the "Find Your Match" button to get a specific dog chosen for you as your new best friend.
+
+## Known Issues
+
+1.) Seach parameters are cleared on page refresh.
+
+- This issue is caused by the parameters and Dog List being stored in the useState rather than in the URL.
+
+2.) Search parameters are not present in FilterForm after submitting request.
+
+- This is caused by not storing the current requests in the URL nor populating the FilterForm with the current requests.
+
+3.) Favorite Dogs tab goes outside parent element on screens wider than 1600px.
+
+- Due to the FavDogs tab having `position: fixed;` and was chosen over `position: absolute;` so that the tab can remain at the bottom of the viewport instead of at the bottom of the parent element.
+
+4.) DogModal description occasionally repeats phrases.
+
+- This is because the descriptions are randomly chosen from an array of options. I find it funny when it happens, and think of it as a **feature** rather than an issue.
+
+5.) Pagination displays on Loading Page State.
+
+- The Pagination element on render defaults to page 1. The original intention was to conditionally load the entire home page with a loading page, but this caused the Pagination element to reload every time the search results changed. This led to the element never registering past the 1st page. Final solution was to keep the element through page loads.
+
+6.) When making a filter request for "African Hunting Dog" with no other additions, Willard has no city named.
+
+- The zip code from the dog _Willard,_ "yMD-OZUBBPFf4ZNZzDmI", returns from post /locations as null, causing a rendering error. To avoid this, a check was added to ignore such instances and to display the zip code instead.
+
+## Next Steps
+
+1.) Store the search params in the current URLparams so that there can be persistent search results between pages.
+
+2.) Auto-fill the FilterForm with the current search params to make editing previous search request easier.
+
+3.) Clean up code by storing large functions in separate files in /src/utils/
+
+4.) Add keyframes to page styling to have fluid animation between states.
+
+- One example would be for the FavDogs list to be pre-rendered and be hidden underneath the viewport, then on tab click, will slide up to be visible.
+
+4.) Consider three.js, react-spring, or other animation frameworks to add animations to icons, backgrounds, and page interations.
+
+## 🚀 About Me
+
+Hi I'm Zea! I'm a full-stack web developer driven by faith, focused on excellence. I am passionate about building high quality, purpose-driven digital experiences. I specialize in JavaScript, React, Node.js and Typescript, with a skill set that spans from front-end design to back-end development. My approach combines a deep technical proficiency with a commitment to creating intuitive, reliable products designed to highlight what makes each client unique.
+
+## 🔗 Links
+
+[![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://zunigaweb.dev/)
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/zealtiel-zuniga-anaya)
