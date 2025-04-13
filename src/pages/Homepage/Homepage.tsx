@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "./Homepage.scss";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -36,6 +36,35 @@ export default function Homepage(props: HomepageProps) {
 
   const baseURL = "https://frontend-take-home-service.fetch.com";
 
+  const axiosGetRequest = useCallback(
+    (search: string) => {
+      setIsLoading(true);
+
+      axios
+        .get(baseURL.concat(search), { withCredentials: true })
+        .then((res) => {
+          if (res.data.resultIds[0]) {
+            let newList = res.data.resultIds;
+            setResultsIds(newList);
+            setNextSearch(res.data.next);
+            setTotalSearch(res.data.total);
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          } else {
+            setDogList([]);
+            setIsLoading(false);
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+          if (error.data === "Unauthorized") {
+            navigate("/");
+          }
+        });
+    },
+    [navigate]
+  );
+
   useEffect(() => {
     axiosGetRequest("/dogs/search?sort=breed:asc");
 
@@ -50,7 +79,7 @@ export default function Homepage(props: HomepageProps) {
         console.error(err);
         navigate("/");
       });
-  }, []);
+  }, [axiosGetRequest, navigate]);
 
   //This function takes the results of any search and sends it to the server for
   //more information on each dog object returned.
@@ -106,33 +135,7 @@ export default function Homepage(props: HomepageProps) {
     } else {
       return;
     }
-  }, [resultsIds]);
-
-  const axiosGetRequest = (search: string) => {
-    setIsLoading(true);
-
-    axios
-      .get(baseURL.concat(search), { withCredentials: true })
-      .then((res) => {
-        if (res.data.resultIds[0]) {
-          let newList = res.data.resultIds;
-          setResultsIds(newList);
-          setNextSearch(res.data.next);
-          setTotalSearch(res.data.total);
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        } else {
-          setDogList([]);
-          setIsLoading(false);
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-        if (error.data === "Unauthorized") {
-          navigate("/");
-        }
-      });
-  };
+  }, [resultsIds, navigate]);
 
   const filterMakeParams = (filters: filterFormValues) => {
     let filterParams = "";

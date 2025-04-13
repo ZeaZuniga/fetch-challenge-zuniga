@@ -21,7 +21,7 @@ export default function DogCard(props: DogProps) {
     } else if (!props.favIds.includes(props.dogData.id)) {
       setHeartChecked(false);
     }
-  }, [props.favIds]);
+  }, [props.favIds, props.dogData.id]);
 
   const handleHeart: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.stopPropagation();
@@ -56,7 +56,7 @@ export default function DogCard(props: DogProps) {
       <div className="dogCard__container">
         <img
           src={props.dogData.img}
-          alt={`Photo of ${props.dogData.name}`}
+          alt={`${props.dogData.name}`}
           className="dogCard__img"
         />
       </div>
