@@ -58,23 +58,23 @@ Start the server
 
 - This issue is caused by the parameters and Dog List being stored in the useState rather than in the URL.
 
-2.) Search parameters are not present in FilterForm after submitting request.
+  2.) Search parameters are not present in FilterForm after submitting request.
 
 - This is caused by not storing the current requests in the URL nor populating the FilterForm with the current requests.
 
-3.) Favorite Dogs tab goes outside parent element on screens wider than 1600px.
+  3.) Favorite Dogs tab goes outside parent element on screens wider than 1600px.
 
 - Due to the FavDogs tab having `position: fixed;` and was chosen over `position: absolute;` so that the tab can remain at the bottom of the viewport instead of at the bottom of the parent element.
 
-4.) DogModal description occasionally repeats phrases.
+  4.) DogModal description occasionally repeats phrases.
 
 - This is because the descriptions are randomly chosen from an array of options. I find it funny when it happens, and think of it as a **feature** rather than an issue.
 
-5.) Pagination displays on Loading Page State.
+  5.) Pagination displays on Loading Page State.
 
 - The Pagination element on render defaults to page 1. The original intention was to conditionally load the entire home page with a loading page, but this caused the Pagination element to reload every time the search results changed. This led to the element never registering past the 1st page. Final solution was to keep the element through page loads.
 
-6.) When making a filter request for "African Hunting Dog" with no other additions, Willard has no city named.
+  6.) When making a filter request for "African Hunting Dog" with no other additions, Willard has no city named.
 
 - The zip code from the dog _Willard,_ "yMD-OZUBBPFf4ZNZzDmI", returns from post /locations as null, causing a rendering error. To avoid this, a check was added to ignore such instances and to display the zip code instead.
 
@@ -90,7 +90,9 @@ Start the server
 
 - One example would be for the FavDogs list to be pre-rendered and be hidden underneath the viewport, then on tab click, will slide up to be visible.
 
-4.) Consider three.js, react-spring, or other animation frameworks to add animations to icons, backgrounds, and page interations.
+  5.) Consider three.js, react-spring, or other animation frameworks to add animations to icons, backgrounds, and page interations.
+
+  6.) Add a search parameter option for "Search within _number_ miles of _city or zip code_.
 
 ## 🚀 About Me
 
