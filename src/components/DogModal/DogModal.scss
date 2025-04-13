@@ -1,4 +1,5 @@
 @use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
 
 .dogModal {
   position: fixed;
@@ -27,6 +28,12 @@
     background-color: $FetchWhite;
     border: 3px solid $FetchPrimary;
     border-radius: 12px;
+
+    @include desktop-design {
+      max-width: 100rem;
+      width: fit-content;
+      padding: 3rem 8rem;
+    }
 
     .dogModal__img {
       max-height: 50vh;

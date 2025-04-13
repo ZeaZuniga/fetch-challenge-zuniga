@@ -19,6 +19,14 @@
     height: 6rem;
   }
 
+  @include desktop-design {
+    right: 6%;
+  }
+
+  @media (min-width: 1500px) {
+    right: 10%;
+  }
+
   &--open {
     width: 30rem;
     height: fit-content;
