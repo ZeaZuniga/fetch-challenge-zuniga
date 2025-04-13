@@ -1,0 +1,145 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: $FetchPrimaryDark;
+  color: $FetchWhite;
+  width: 100%;
+  margin-top: 4rem;
+  padding: 3rem 2rem;
+  row-gap: 4rem;
+
+  @include tablet-design {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  @include desktop-design {
+    padding: 5rem 3rem;
+    row-gap: 5rem;
+    column-gap: 10rem;
+  }
+
+  @media (min-width: 1400px) {
+    column-gap: 20rem;
+  }
+
+  &__logo {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    row-gap: 1.6rem;
+    width: 30rem;
+
+    .footer__img {
+      height: 10rem;
+      width: 10rem;
+      margin-right: 1rem;
+
+      @include desktop-design {
+        height: 12rem;
+        width: 12rem;
+        margin-right: 2rem;
+      }
+    }
+
+    .footer__title {
+      font-size: 4rem;
+      z-index: 1;
+      width: min-content;
+      font-weight: bold;
+
+      @include desktop-design {
+        font-size: 5rem;
+      }
+    }
+
+    .footer__copywrite {
+      margin: auto;
+      font-size: 1.2rem;
+      width: 19rem;
+      text-align: center;
+
+      @include desktop-design {
+        font-size: 1.4rem;
+        width: 22rem;
+      }
+    }
+  }
+
+  &__lists {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    row-gap: 2.4rem;
+    column-gap: 2rem;
+    width: 90%;
+    min-width: 30rem;
+
+    @include tablet-design {
+      width: fit-content;
+    }
+
+    .footer__container {
+      min-width: 13rem;
+      width: 30%;
+
+      .footer__header {
+        text-decoration: underline;
+        text-align: center;
+        margin-bottom: 1.6rem;
+      }
+
+      .footer__list {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        row-gap: 1.6rem;
+        text-align: center;
+        max-width: 18rem;
+        margin: auto;
+
+        .footer__link:hover {
+          font-weight: bold;
+          color: $FetchSecondary;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  &__disclaimer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 1.6rem;
+    width: 90%;
+    min-width: 28rem;
+
+    .footer__disclaim-head {
+      text-decoration: underline;
+      font-size: 2.6rem;
+    }
+
+    .footer__disclaim-text {
+      text-indent: 2rem;
+      line-height: 2.2rem;
+      max-width: 80rem;
+
+      &--link {
+        font-weight: bold;
+        text-decoration: underline;
+        color: $FetchSecondary;
+      }
+    }
+  }
+}

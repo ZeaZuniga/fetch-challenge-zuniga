@@ -1,0 +1,130 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials//mixins" as *;
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: fit-content;
+  flex-wrap: wrap;
+  padding: 1rem 1.6rem;
+  background-color: $FetchLightGray;
+  row-gap: 3rem;
+  position: fixed;
+  z-index: 10;
+  top: 0;
+
+  @include tablet-design {
+    flex-wrap: nowrap;
+  }
+
+  @include desktop-design {
+    max-width: 154rem;
+    padding: 1rem 2rem;
+  }
+
+  &__logo {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    margin-right: auto;
+
+    .navbar__img {
+      height: 6rem;
+      width: 6rem;
+      margin-right: 1rem;
+    }
+
+    .navbar__title {
+      font-size: 2.6rem;
+      z-index: 1;
+      width: min-content;
+      font-weight: bold;
+    }
+  }
+
+  &__container {
+    background-color: transparent;
+    border: none;
+    width: 3rem;
+    height: 3rem;
+    margin-top: 1rem;
+    align-self: flex-start;
+    cursor: pointer;
+
+    @include tablet-design {
+      display: none;
+    }
+  }
+
+  &__list {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 4rem;
+    width: 100%;
+    padding-bottom: 2rem;
+
+    @include tablet-design {
+      flex-direction: row;
+      width: fit-content;
+      padding: 0;
+      column-gap: 1.6rem;
+    }
+
+    &--open {
+      display: flex;
+    }
+
+    &--hidden {
+      display: none;
+
+      @include tablet-design {
+        display: flex;
+      }
+    }
+
+    .navbar__item {
+      font-size: 2.4rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+
+      @include tablet-design {
+        font-size: 1.6rem;
+        font-weight: bold;
+      }
+
+      &:hover {
+        color: $FetchPrimary;
+        text-decoration: underline;
+        text-underline-offset: 8px;
+      }
+
+      .navbar__button {
+        background-color: $FetchPrimary;
+        border: 2px solid $FetchPrimary;
+        color: $FetchWhite;
+        border-radius: 5rem;
+        padding: 0.8rem 0;
+        width: 15rem;
+        font-size: 1.3rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: bold;
+        cursor: pointer;
+
+        @include tablet-design {
+          width: 12rem;
+        }
+
+        &:hover {
+          background-color: $FetchPrimaryDark;
+          border-color: $FetchPrimaryDark;
+        }
+      }
+    }
+  }
+}

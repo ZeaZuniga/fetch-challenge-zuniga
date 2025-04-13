@@ -1,0 +1,59 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.dogModal {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: scroll;
+  top: 0;
+  left: 0;
+  z-index: 20;
+  backdrop-filter: blur(2px);
+  background-color: rgba($FetchPrimaryDark, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  &__card {
+    width: 90%;
+    min-width: 30rem;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 3rem 0;
+    background-color: $FetchWhite;
+    border: 3px solid $FetchPrimary;
+    border-radius: 12px;
+
+    @include desktop-design {
+      max-width: 100rem;
+      width: fit-content;
+      padding: 3rem 8rem;
+    }
+
+    .dogModal__img {
+      max-height: 50vh;
+      min-width: 20rem;
+      object-fit: cover;
+    }
+
+    .dogModal__info {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      row-gap: 1.6rem;
+      padding: 2rem 1.6rem 0;
+
+      .dogModal__name {
+        font-size: 3.6rem;
+        color: $FetchPrimary;
+        font-style: italic;
+      }
+    }
+  }
+}

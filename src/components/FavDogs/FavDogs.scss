@@ -1,0 +1,178 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.favDogs {
+  position: fixed;
+  bottom: 0;
+  right: 1.4rem;
+  z-index: 5;
+  background-color: $FetchSecondary;
+  color: $FetchPrimaryDark;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  padding: 1rem;
+  width: 5rem;
+  height: 5rem;
+
+  @include tablet-design {
+    width: 6rem;
+    height: 6rem;
+  }
+
+  @include desktop-design {
+    right: 6%;
+  }
+
+  @media (min-width: 1500px) {
+    right: 10%;
+  }
+
+  &--open {
+    width: 30rem;
+    height: fit-content;
+    right: 50%;
+    transform: translateX(50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-bottom: 0;
+    background-color: $FetchWhite;
+    border: 3px solid $FetchSecondary;
+    border-bottom-width: 0;
+    backdrop-filter: blur(3px);
+
+    @include tablet-design {
+      position: sticky;
+      border-radius: 12px;
+      border-bottom-width: 3px;
+      width: fit-content;
+      max-width: 90%;
+      right: 5%;
+      transform: initial;
+      margin-top: 4rem;
+    }
+  }
+
+  &__tab {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    &--open {
+      width: fit-content;
+      position: absolute;
+      right: 0;
+      top: 0;
+      background-color: $FetchSecondary;
+      padding: 0.8rem;
+      border-bottom-left-radius: 12px;
+    }
+
+    .favDogs__number {
+      background-color: $FetchWhite;
+      position: absolute;
+      top: -5px;
+      left: -7px;
+      border-radius: 50%;
+      width: 1.8rem;
+      height: 1.8rem;
+      border: 2px solid $FetchPrimaryDark;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2rem;
+
+      @include tablet-design {
+        font-size: 1.5rem;
+        width: 2.2rem;
+        height: 2.2rem;
+      }
+
+      &--open {
+        display: none;
+      }
+    }
+
+    .favDogs__heart {
+      width: 3rem;
+      height: 3rem;
+
+      @include tablet-design {
+        width: 4rem;
+        height: 4rem;
+      }
+
+      &--open {
+        width: 2.4rem;
+        height: 2.4rem;
+      }
+    }
+  }
+
+  &__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    margin: 1rem 0 2rem;
+    column-gap: 1rem;
+
+    .favDogs__count {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2.4rem;
+      font-weight: bold;
+    }
+
+    .favDogs__header {
+      font-size: 2.4rem;
+      font-weight: bold;
+    }
+  }
+
+  &__list {
+    max-height: calc(100vh - 220px);
+    overflow-y: scroll;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    list-style: none;
+    row-gap: 2rem;
+    max-width: 95%;
+    width: 27rem;
+
+    @include tablet-design {
+      overflow-y: initial;
+      overflow-x: scroll;
+      flex-wrap: nowrap;
+      max-height: fit-content;
+      max-width: 100%;
+      width: fit-content;
+      column-gap: 2rem;
+    }
+  }
+
+  &__match {
+    margin: 1.5rem 0;
+    border: none;
+    border-radius: 20rem;
+    width: 20rem;
+    height: 4rem;
+    padding: 1rem 0;
+    font-size: 1.6rem;
+    background-color: $FetchPrimary;
+    color: $FetchWhite;
+    font-weight: bold;
+    letter-spacing: 1px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $FetchPrimaryDark;
+    }
+  }
+}

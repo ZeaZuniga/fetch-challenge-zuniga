@@ -1,0 +1,82 @@
+@use "../../styles/partials/variables" as *;
+
+.loginPage {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  flex-grow: 1;
+  padding-top: 1.6rem;
+
+  &__dog {
+    width: 10rem;
+    margin-bottom: -2rem;
+    z-index: 1;
+    position: relative;
+    left: 6rem;
+  }
+
+  &__loginForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: $FetchWhite;
+    padding: 5rem 0;
+    border-radius: 12px;
+    border: 2px solid $FetchPrimary;
+    width: 90%;
+    min-width: 30rem;
+
+    .loginForm {
+      &__header {
+        width: 20rem;
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      &__label {
+        width: 20rem;
+        font-size: 1.4rem;
+      }
+
+      &__input {
+        width: 20rem;
+        height: fit-content;
+        padding: 0.5rem 1rem;
+        border: 2px solid $FetchPrimary;
+        border-radius: 6px;
+        margin-bottom: 1.6rem;
+
+        &:focus-within {
+          outline: 0;
+          border-color: $FetchSecondary;
+        }
+
+        &:focus {
+          border-color: $FetchSecondary;
+        }
+      }
+
+      &__button {
+        background-color: $FetchPrimary;
+        border: 2px solid $FetchPrimary;
+        color: $FetchWhite;
+        border-radius: 5rem;
+        padding: 8px 0;
+        font-size: 1.4rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        width: 16rem;
+        margin-top: 1rem;
+        cursor: pointer;
+
+        &:hover {
+          background-color: $FetchPrimaryDark;
+          border-color: $FetchPrimaryDark;
+        }
+      }
+    }
+  }
+}

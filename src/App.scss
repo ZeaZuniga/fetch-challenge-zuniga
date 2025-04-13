@@ -1,0 +1,11 @@
+@use "./styles/partials/variables" as *;
+
+.App {
+  padding-top: 8rem;
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+}

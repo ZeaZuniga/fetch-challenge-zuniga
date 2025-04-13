@@ -1,0 +1,147 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials//mixins" as *;
+
+.filterform {
+  background-color: $FetchPrimary;
+  color: $FetchLightGray;
+  position: relative;
+  border-radius: 12px;
+  min-width: 28rem;
+  width: 80%;
+  margin: auto;
+  margin-bottom: 1.6rem;
+
+  @include tablet-design {
+    width: 26rem;
+    min-width: initial;
+    margin: 0;
+    position: sticky;
+    top: 9rem;
+  }
+
+  &__tab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4rem;
+    column-gap: 1.2rem;
+    position: relative;
+
+    .filterform__header {
+      font-size: 2rem;
+      letter-spacing: 1.5px;
+      font-weight: bold;
+      color: $FetchWhite;
+    }
+
+    .filterform__close {
+      display: none;
+      height: 3rem;
+      width: 3rem;
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+
+      &--open {
+        display: initial;
+
+        @include tablet-design {
+          display: none;
+        }
+      }
+
+      &--hidden {
+        display: none;
+      }
+    }
+  }
+
+  &__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 0 1rem 1rem;
+    row-gap: 1.5rem;
+
+    &--hidden {
+      display: none;
+
+      @include tablet-design {
+        display: flex;
+      }
+    }
+
+    &--open {
+      display: flex;
+    }
+
+    .filterform__container {
+      width: 100%;
+
+      &--age {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        column-gap: 2rem;
+
+        .filterform__divider {
+          max-width: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+        }
+      }
+
+      .filterform__label {
+        width: 100%;
+        font-size: 1.4rem;
+
+        &--age {
+          display: block;
+          width: 10rem;
+        }
+      }
+
+      .filterform__input {
+        width: 100%;
+        height: fit-content;
+        padding: 0.5rem 1rem;
+        border: 2px solid $FetchPrimary;
+        border-radius: 6px;
+
+        &:focus-within {
+          outline: 0;
+          border-color: $FetchSecondary;
+        }
+
+        &:focus {
+          border-color: $FetchSecondary;
+        }
+
+        &--age {
+          max-width: 8rem;
+        }
+      }
+    }
+
+    .filterform__submit {
+      background-color: $FetchSecondary;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 12px;
+      color: $FetchPrimaryDark;
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      cursor: pointer;
+      font-weight: bold;
+      letter-spacing: 1px;
+
+      &:hover {
+        background-color: $FetchPrimaryDark;
+        color: $FetchWhite;
+      }
+    }
+  }
+}

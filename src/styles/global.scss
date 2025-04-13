@@ -1,0 +1,12 @@
+@use "./partials/resets";
+@use "./partials/variables" as *;
+
+body {
+  font-family: sans-serif;
+  color: $FetchPrimaryDark;
+  background-color: $FetchLightGray;
+}
+
+img {
+  max-width: 100%;
+}

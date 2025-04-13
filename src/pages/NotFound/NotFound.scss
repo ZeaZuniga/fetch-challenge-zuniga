@@ -1,0 +1,33 @@
+@use "../../styles/partials/variables" as *;
+
+.notFound {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: $FetchWhite;
+  border: 3px solid $FetchPrimary;
+  border-radius: 12px;
+  padding: 3rem;
+  width: 90%;
+  margin: 2rem auto 0;
+  row-gap: 3rem;
+
+  &__header {
+    text-align: center;
+    font-size: 2rem;
+  }
+
+  &__button {
+    border: none;
+    border-radius: 5rem;
+    background-color: $FetchPrimary;
+    color: $FetchWhite;
+    padding: 1rem 3rem;
+    width: fit-content;
+    height: fit-content;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 2px;
+  }
+}
