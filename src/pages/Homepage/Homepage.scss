@@ -175,6 +175,11 @@
         column-gap: 2rem;
       }
 
+      @include desktop-design {
+        width: fit-content;
+        max-width: 100%;
+      }
+
       .loading__card {
         background-color: $FetchPrimaryDark;
         height: 14rem;
@@ -184,6 +189,10 @@
 
         @include tablet-design {
           width: 45%;
+        }
+
+        @include desktop-design {
+          width: 30%;
         }
 
         &--top {
