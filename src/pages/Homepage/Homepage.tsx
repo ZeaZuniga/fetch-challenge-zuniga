@@ -19,10 +19,6 @@ interface HomepageProps {
 }
 
 export default function Homepage(props: HomepageProps) {
-  //Regarding these useStates, the next steps for this project would be to
-  //store the states relating to search parameters in session storage to have
-  //persistent search results through page refreshes and going back to different pages.
-
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [resultsIds, setResultsIds] = useState<[]>([]);
   const [dogList, setDogList] = useState<Dog[]>([]);
@@ -81,17 +77,6 @@ export default function Homepage(props: HomepageProps) {
       });
   }, [axiosGetRequest, navigate]);
 
-  //This function takes the results of any search and sends it to the server for
-  //more information on each dog object returned.
-  // To make the zipCodes for each dog easier to read for the user,
-  // the secondary axios call swaps out the zip codes
-  // with the city and state attached to the zip code.
-
-  //One known error is when making filter request for "African Hunting Dog"
-  //With no other changes, the zip code from "yMD-OZUBBPFf4ZNZzDmI" Willard
-  //Returns from post /locations as null, causing a rendering error. Without
-  //Being able to resolve this issue itself, I just skipped swapping the zip
-  //Code with the city/state for the brevity of this challenge.
   useEffect(() => {
     if (resultsIds.length !== 0) {
       axios
@@ -178,11 +163,6 @@ export default function Homepage(props: HomepageProps) {
     axiosGetRequest(`/dogs/search?${filterParams}`.replaceAll(" ", "%20"));
   };
 
-  //The conditional rendering is structure like this because of a known issue when unmounting
-  //And remounting the Pagination element where it treats every page like the first since it
-  //Defaults to 1st page on each render. Keeping it rendered even through loading states
-  //Is my quick workaround to this issue. Original idea (as evident in the git commits) was
-  //To have an entire loading screen to minimize code, but this will have to do for now.
   return (
     <div className="homepage">
       <section className="homepage__headContainer">

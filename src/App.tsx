@@ -9,65 +9,71 @@ import DogModal from "./components/DogModal/DogModal";
 import { useState } from "react";
 import { Dog } from "./utils/interfaces";
 import axios from "axios";
+import funcMatch from "./utils/funcMatch";
+import funcGetData from "./utils/funcGetData";
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [modalData, setModalData] = useState<Dog | undefined>(undefined);
 
   const getMatched = (favIds: string[]) => {
-    axios
-      .post("https://frontend-take-home-service.fetch.com/dogs/match", favIds, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        let matchedDog: Dog;
-        let matchId: string[] = [];
-        let matchZipCode: string[] = [];
+    funcGetData(favIds)
+      .then((res) => console.log(res))
+      .catch((err) => console.log("Something went wrong getting data:", err));
 
-        matchId.push(res.data.match);
+    // axios
+    //   .post("https://frontend-take-home-service.fetch.com/dogs/match", favIds, {
+    //     withCredentials: true,
+    //   })
+    //   .then((res) => {
+    //     let matchedDog: Dog;
+    //     let matchId: string[] = [];
+    //     let matchZipCode: string[] = [];
 
-        axios
-          .post("https://frontend-take-home-service.fetch.com/dogs", matchId, {
-            withCredentials: true,
-          })
-          .then((idRes) => {
-            matchedDog = idRes.data[0];
-            matchZipCode.push(idRes.data[0].zip_code);
+    //     matchId.push(res.data.match);
 
-            axios
-              .post(
-                "https://frontend-take-home-service.fetch.com/locations",
-                matchZipCode,
-                {
-                  withCredentials: true,
-                }
-              )
-              .then((locRes) => {
-                matchedDog.zip_code = `${locRes.data[0].city}, ${locRes.data[0].state}`;
+    //     axios
+    //       .post("https://frontend-take-home-service.fetch.com/dogs", matchId, {
+    //         withCredentials: true,
+    //       })
+    //       .then((idRes) => {
+    //         matchedDog = idRes.data[0];
+    //         matchZipCode.push(idRes.data[0].zip_code);
 
-                setModalData(matchedDog);
-                setIsModalOpen(true);
-              })
-              .catch((err) => {
-                console.error(
-                  "There was an issue getting your matched dog location data. Here are the error notes:",
-                  err
-                );
-              });
-          })
-          .catch((err) => {
-            console.error(
-              "There was an issue getting your matched dog details. Here are the error notes:",
-              err
-            );
-          });
-      })
-      .catch((err) => {
-        console.error(
-          "There was an issue getting your matched dog id. Here are the error notes:",
-          err
-        );
-      });
+    //         axios
+    //           .post(
+    //             "https://frontend-take-home-service.fetch.com/locations",
+    //             matchZipCode,
+    //             {
+    //               withCredentials: true,
+    //             }
+    //           )
+    //           .then((locRes) => {
+    //             matchedDog.zip_code = `${locRes.data[0].city}, ${locRes.data[0].state}`;
+
+    //             setModalData(matchedDog);
+    //             setIsModalOpen(true);
+    //           })
+    //           .catch((err) => {
+    //             console.error(
+    //               "There was an issue getting your matched dog location data. Here are the error notes:",
+    //               err
+    //             );
+    //           });
+    //       })
+    //       .catch((err) => {
+    //         console.error(
+    //           "There was an issue getting your matched dog details. Here are the error notes:",
+    //           err
+    //         );
+    //       });
+    //   })
+    //   .catch((err) => {
+    //     console.error(
+    //       "There was an issue getting your matched dog id. Here are the error notes:",
+    //       err
+    //     );
+    //   });
   };
 
   return (
